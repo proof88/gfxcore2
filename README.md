@@ -13,3 +13,6 @@ https://github.com/proof88/PGE
 
 And the source code of PR00FPS written in Delphi is here:
 https://github.com/proof88/PR00FPS
+
+The Visual Studio project file is included.<br/>
+However, you may be interested in the Visual Studio solution including other projects as well in [PGE-misc](https://github.com/proof88/PGE-misc) repo, including the abovementioned new PURE graphics library as well.
