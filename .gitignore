@@ -332,3 +332,4 @@ ASALocalRun/
 *.lastbuildstate
 *.idb
 *.vcxproj
+*.unsuccessfulbuild
