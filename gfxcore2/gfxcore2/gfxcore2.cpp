@@ -635,7 +635,7 @@ GFXCORE2_API void __stdcall tmcsMultiTexAssignObject(DELPHI_WORD index1, DELPHI_
     // So after all here we have a chance to set blending funcs of the object back to default, since the blending funcs controlling how layer 2 
     // should be blended over layer 1 is already stored in subobject's material attribs in above loop. That will work fine even if we reset parent's
     // blending funcs.
-    obj1->getMaterial().SetBlendFuncs( PRRE_ONE, PRRE_ZERO );
+    obj1->getMaterial(false).SetBlendFuncs( PRRE_ONE, PRRE_ZERO );
 
     // At this point, we should be safe to delete obj2 since object's dtor calls material's dtor which doesn't free up the textures.
     // However, a mechanism is needed to be implemented to correctly handle this situation.
@@ -647,7 +647,7 @@ GFXCORE2_API void __stdcall tmcsMultiTexAssignObject(DELPHI_WORD index1, DELPHI_
 GFXCORE2_API void __stdcall tmcsDeleteObject(DELPHI_WORD index)
 {
     /*
-        Due to proofps bug, we cannot let application delete the first object, reasoning:
+        Due to proofps 1.0 (2007) bug, we could not let application delete the first object, reasoning:
          - first object in proofps with index 0 is obj_mapsample alias loading screen;
          - after loading everything, proofps creates opening screen with 2 planes which move out of view in main loop;
          - after this, proofps sets boolean firstframe variable to true before entering main loop;
@@ -671,17 +671,14 @@ GFXCORE2_API void __stdcall tmcsDeleteObject(DELPHI_WORD index)
         Update: after testing proofps with not deleting object 0, it stopped leaking memory, and game was playable for multiple rounds.
         However, there were some glitches with some objects, so I rather stick to not deleting any object just hiding it. With that glitches were not found but memory leak is huge.
         Still playable for 2 consecutive rounds though.
+
+        Update 2: fixed the problem in the game itself, no need for the WA anymore. Still keeping the above comment since that applies to the original PR00FPS 1.0.
     */
     PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(index);
 
     if ( obj )
     {
-        obj->Hide();
-        
-        /*if ( index == 0 )
-            obj->Hide();
-        else
-            objmgr->DeleteAttachedInstance(*obj);*/
+        objmgr->DeleteAttachedInstance(*obj);
     }
 }
 
@@ -1465,13 +1462,15 @@ GFXCORE2_API DELPHI_INTEGER __stdcall tmcsCreateBlankTexture(DELPHI_INTEGER widt
 
 GFXCORE2_API void  __stdcall tmcsDeleteTexture(DELPHI_WORD num)
 {
-    /* due to legacy project bug, we cannot let application delete the first texture, see details in tmcsDeleteObject() */
-    if ( num == 0 )
-        return;
+    // due to legacy project bug, we cannot let application delete the first texture, see details in tmcsDeleteObject()
+    // update: bug has been fixed on application side, see updates in tmcsDeleteObject()
+    /*if ( num == 0 )
+        return;*/
 
     PRRETexture* const tex = (PRRETexture*) texmgr->getAttachedAt(num);
-    if ( tex )
+    if ( tex ) {
         texmgr->DeleteAttachedInstance(*tex);
+    }
 }
 
 GFXCORE2_API void  __stdcall tmcsDeleteTextures()
