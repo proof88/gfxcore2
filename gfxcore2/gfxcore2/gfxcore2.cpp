@@ -1741,7 +1741,6 @@ GFXCORE2_API void __stdcall tmcsSetTextBlendMode(DELPHI_TGLCONST sfactor, DELPHI
 GFXCORE2_API DELPHI_INTEGER __stdcall tmcsGetTextWidth(DELPHI_TSTR255 text, DELPHI_WORD fontheight, DELPHI_WORD scaling)
 {
     // TODO: proofps continuously invoking this even when no text is displayed ... find way to speed this up
-
     DELPHI_TSTR255 strTmpBuffer;
     StrConvDelphiStrToCStr(text, strTmpBuffer);
     std::string textStr = (char*) strTmpBuffer;
