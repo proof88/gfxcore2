@@ -21,14 +21,14 @@
 #include <vector>
 
 // GL headers, never changed
-#include "../../../PGE/PGE/PRRE/gl/GL.h"
-#include "../../../PGE/PGE/PRRE/gl/glu.h"
-#include "../../../PGE/PGE/PRRE/gl/glext.h"
-#include "../../../PGE/PGE/PRRE/gl/wglext.h"
+#include "../../../PGE/PGE/PRRE/include/internal/gl/GL.h"
+#include "../../../PGE/PGE/PRRE/include/internal/gl/glu.h"
+#include "../../../PGE/PGE/PRRE/include/internal/gl/glext.h"
+#include "../../../PGE/PGE/PRRE/include/internal/gl/wglext.h"
 
 // TODO: reference additional headers your program requires here
 #include "../../../CConsole/CConsole/src/CConsole.h"
 #include "../../../PFL/PFL/PFL.h"
-#include "../../../PGE/PGE/PRRE/PR00FsReducedRenderingEngine.h"
-#include "../../../PGE/PGE/PRRE/Math/PRREVector.h"
-#include "../../../PGE/PGE/PRRE/Math/PRREMatrix.h"
+#include "../../../PGE/PGE/PRRE/include/external/PR00FsReducedRenderingEngine.h"
+#include "../../../PGE/PGE/PRRE/include/external/Math/PRREVector.h"
+#include "../../../PGE/PGE/PRRE/include/external/Math/PRREMatrix.h"
