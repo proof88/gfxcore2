@@ -126,7 +126,7 @@
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;opengl32.lib;glu32.lib;dwmapi.lib;CConsole.lib;PFL.lib;PGE.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy /y "$(OutDir)$(TargetName)$(TargetExt)" "d:\__PR00F__\___developing___\projects\Delphi\PR00FPS\PR00FPS\gfxcore.dll"</Command>
+      <Command>copy /y "$(OutDir)$(TargetName)$(TargetExt)" "$(OutDir)\..\..\..\Delphi\PR00FPS\PR00FPS\gfxcore.dll"</Command>
       <Message>Copying generated $(TargetExt) to PR00FPS dir ...</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -155,7 +155,7 @@
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;opengl32.lib;glu32.lib;dwmapi.lib;CConsole.lib;PFL.lib;PGE.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy /y "$(OutDir)$(TargetName)$(TargetExt)" "d:\__PR00F__\___developing___\projects\Delphi\PR00FPS\PR00FPS\gfxcore.dll"</Command>
+      <Command>copy /y "$(OutDir)$(TargetName)$(TargetExt)" "$(OutDir)\..\..\..\Delphi\PR00FPS\PR00FPS\gfxcore.dll"</Command>
       <Message>Copying generated $(TargetExt) to PR00FPS dir ...</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
