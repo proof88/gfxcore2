@@ -8,7 +8,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPR00FPS|Win32'">
     <LocalDebuggerCommand>$(OutDir)\..\..\..\Delphi\PR00FPS\PR00FPS\PR00FPS.exe</LocalDebuggerCommand>
-    <LocalDebuggerWorkingDirectory>g:\__PR00F__\___developing___\projects\Delphi\PR00FPS\PR00FPS\</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory>d:\__PR00F__\___developing___\projects\Delphi\PR00FPS\PR00FPS\</LocalDebuggerWorkingDirectory>
     <LocalDebuggerAttach>false</LocalDebuggerAttach>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
@@ -20,6 +20,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePR00FPS|Win32'">
     <LocalDebuggerCommand>$(OutDir)\..\..\..\Delphi\PR00FPS\PR00FPS\PR00FPS.exe</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerWorkingDirectory>g:\__PR00F__\___developing___\projects\Delphi\PR00FPS\PR00FPS\</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory>d:\__PR00F__\___developing___\projects\Delphi\PR00FPS\PR00FPS\</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
 </Project>
