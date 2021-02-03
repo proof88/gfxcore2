@@ -705,7 +705,7 @@ GFXCORE2_API void __stdcall tmcsCompileObject(DELPHI_WORD index)
 {
     PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(index);
     if ( obj )
-        obj->SetVertexTransferMode( PRREVertexTransfer::selectVertexTransferMode(PRRE_VMOD_STATIC, PRRE_VREF_INDEXED, false) );
+        obj->setVertexTransferMode( PRREVertexTransfer::selectVertexTransferMode(PRRE_VMOD_STATIC, PRRE_VREF_INDEXED, false) );
 }
 
 GFXCORE2_API void __stdcall tmcsShowObject(DELPHI_WORD index)
