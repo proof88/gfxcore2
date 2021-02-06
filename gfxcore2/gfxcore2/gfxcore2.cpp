@@ -620,7 +620,11 @@ GFXCORE2_API void __stdcall tmcsMultiTexAssignObject(DELPHI_WORD index1, DELPHI_
         {
             // copying lightmap data into obj1 material's 2nd layer
             obj1Sub->getMaterial().copyFromMaterial(obj2Sub->getMaterial(), 1, 0);
-            obj1Sub->getMaterial().SetBlendFuncs(obj1Sub->getMaterial().getSourceBlendFunc(), obj1Sub->getMaterial().getDestinationBlendFunc(), 1);
+            // setBlendFuncs() is not recommended to be called from this lib because it doesn't invoke setDestinationBlendFunc()
+            // if setSourceBlendFunc() is failed prior to it. And PR00FPS actually requests invalid source blend func sometimes ...
+            // So we need to work around that by calling the 2 functions here separately.
+            obj1Sub->getMaterial().setSourceBlendFunc(obj1Sub->getMaterial().getSourceBlendFunc(), 1);
+            obj1Sub->getMaterial().setDestinationBlendFunc(obj1Sub->getMaterial().getDestinationBlendFunc(), 1);
         }
     }
 
@@ -635,7 +639,7 @@ GFXCORE2_API void __stdcall tmcsMultiTexAssignObject(DELPHI_WORD index1, DELPHI_
     // So after all here we have a chance to set blending funcs of the object back to default, since the blending funcs controlling how layer 2 
     // should be blended over layer 1 is already stored in subobject's material attribs in above loop. That will work fine even if we reset parent's
     // blending funcs.
-    obj1->getMaterial(false).SetBlendFuncs( PRRE_ONE, PRRE_ZERO );
+    obj1->getMaterial(false).setBlendFuncs( PRRE_ONE, PRRE_ZERO );
 
     // At this point, we should be safe to delete obj2 since object's dtor calls material's dtor which doesn't free up the textures.
     // However, a mechanism is needed to be implemented to correctly handle this situation.
@@ -1056,9 +1060,11 @@ GFXCORE2_API void __stdcall tmcsSetObjectBlendMode(DELPHI_WORD num, DELPHI_TGLCO
     PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(num);
     if ( obj )
     {
-        obj->getMaterial().SetBlendFuncs(
-            getPRREblendFromGLblend((GLenum) sfactor),
-            getPRREblendFromGLblend((GLenum) dfactor) );
+        // setBlendFuncs() is not recommended to be called from this lib because it doesn't invoke setDestinationBlendFunc()
+        // if setSourceBlendFunc() is failed prior to it. And PR00FPS actually requests invalid source blend func sometimes ...
+        // So we need to work around that by calling the 2 functions here separately.
+        obj->getMaterial().setSourceBlendFunc(getPRREblendFromGLblend((GLenum) sfactor));
+        obj->getMaterial().setDestinationBlendFunc(getPRREblendFromGLblend((GLenum) dfactor));
     }
 }
 
@@ -1070,7 +1076,7 @@ GFXCORE2_API void __stdcall tmcsSetObjectBlending(DELPHI_WORD num, DELPHI_BOOLEA
     // so here if state is FALSE then I set non-blending blendmodes.
     PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(num);
     if ( obj && !state )
-        obj->getMaterial().SetBlendFuncs(PRRE_ONE, PRRE_ZERO);
+        obj->getMaterial().setBlendFuncs(PRRE_ONE, PRRE_ZERO);
 
     return;
 }
@@ -1489,7 +1495,7 @@ GFXCORE2_API void  __stdcall tmcsTextureObject(DELPHI_WORD num, DELPHI_WORD num2
         PRRETexture* const tex = (PRRETexture*) texmgr->getAttachedAt(num2);
         if ( tex )
         {
-            obj->getMaterial().SetTexture(tex);
+            obj->getMaterial().setTexture(tex);
         }
     }
 }
