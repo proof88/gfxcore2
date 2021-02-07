@@ -552,11 +552,11 @@ GFXCORE2_API DELPHI_INTEGER __stdcall tmcsCreateObjectFromFile(DELPHI_TSTR40 fna
         DELPHI_TGLCONST glExtEnvmode = GL_DECAL;
     */
     TPRRE_ISO_TEX_FILTERING fNewTexIsoFilteringMin = bExtMipmapping ? (glExtFiltering == GL_LINEAR_MIPMAP_LINEAR ? PRRE_ISO_LINEAR_MIPMAP_LINEAR : PRRE_ISO_LINEAR_MIPMAP_NEAREST) : PRRE_ISO_LINEAR;
-    texmgr->SetDefaultMinFilteringMode( fNewTexIsoFilteringMin );
-    texmgr->SetDefaultMagFilteringMode( PRRE_ISO_LINEAR );
-    texmgr->SetDefaultCompressionMode( bExtCompressed ? PRRE_TC_AUTO : PRRE_TC_NONE );
-    texmgr->SetDefaultBorder( bExtBorder );
-    texmgr->SetDefaultTextureWrappingMode( getPRREtexWrappingFromGLtexWrapping(glExtWrapS), getPRREtexWrappingFromGLtexWrapping(glExtWrapT) );
+    texmgr->setDefaultMinFilteringMode( fNewTexIsoFilteringMin );
+    texmgr->setDefaultMagFilteringMode( PRRE_ISO_LINEAR );
+    texmgr->setDefaultCompressionMode( bExtCompressed ? PRRE_TC_AUTO : PRRE_TC_NONE );
+    texmgr->setDefaultBorder( bExtBorder );
+    texmgr->setDefaultTextureWrappingMode( getPRREtexWrappingFromGLtexWrapping(glExtWrapS), getPRREtexWrappingFromGLtexWrapping(glExtWrapT) );
 
     // need to set dynamic vmod habit to make sure bForceClientMemory = true case takes effect
     PRREObject3D* const obj = objmgr->createFromFile((char*) strTmpBuffer, compiled ? PRRE_VMOD_STATIC : PRRE_VMOD_DYNAMIC, PRRE_VREF_INDEXED, !compiled);
@@ -569,11 +569,11 @@ GFXCORE2_API DELPHI_INTEGER __stdcall tmcsCreateObjectFromFile(DELPHI_TSTR40 fna
 
 
     // load original texmanager settings
-    texmgr->SetDefaultMinFilteringMode( fTexIsoFilteringMin );
-    texmgr->SetDefaultMagFilteringMode( fTexIsoFilteringMag );
-    texmgr->SetDefaultCompressionMode( compTex );
-    texmgr->SetDefaultBorder( bBorder );
-    texmgr->SetDefaultTextureWrappingMode( twS, twT );
+    texmgr->setDefaultMinFilteringMode( fTexIsoFilteringMin );
+    texmgr->setDefaultMagFilteringMode( fTexIsoFilteringMag );
+    texmgr->setDefaultCompressionMode( compTex );
+    texmgr->setDefaultBorder( bBorder );
+    texmgr->setDefaultTextureWrappingMode( twS, twT );
     
     return retVal;
 }
@@ -1342,10 +1342,10 @@ GFXCORE2_API DELPHI_INTEGER __stdcall tmcsCreateTextureFromFile(DELPHI_TFILENAME
         CConsole::getConsoleInstance().EOLn("tmcsCreateTextureFromFile() wrapping T branched to default!");
     }
     
-    texmgr->SetDefaultIsoFilteringMode(finalMinFiltering, finalMagFiltering);
-    texmgr->SetDefaultCompressionMode(compressed ? PRRE_TC_AUTO : PRRE_TC_NONE);
-    texmgr->SetDefaultTextureWrappingMode(finalTW_S, finalTW_T);
-    texmgr->SetDefaultBorder(border);
+    texmgr->setDefaultIsoFilteringMode(finalMinFiltering, finalMagFiltering);
+    texmgr->setDefaultCompressionMode(compressed ? PRRE_TC_AUTO : PRRE_TC_NONE);
+    texmgr->setDefaultTextureWrappingMode(finalTW_S, finalTW_T);
+    texmgr->setDefaultBorder(border);
 
     DELPHI_TSTR255 strTmpBuffer;
     StrConvDelphiStrToCStr(filename, strTmpBuffer);
@@ -1353,11 +1353,11 @@ GFXCORE2_API DELPHI_INTEGER __stdcall tmcsCreateTextureFromFile(DELPHI_TFILENAME
     const PRRETexture* const tex = texmgr->createFromFile((char*) strTmpBuffer);
 
     // load original texmanager settings
-    texmgr->SetDefaultMinFilteringMode( fTexIsoFilteringMin );
-    texmgr->SetDefaultMagFilteringMode( fTexIsoFilteringMag );
-    texmgr->SetDefaultCompressionMode( compTex );
-    texmgr->SetDefaultBorder( bBorder );
-    texmgr->SetDefaultTextureWrappingMode( twS, twT );
+    texmgr->setDefaultMinFilteringMode( fTexIsoFilteringMin );
+    texmgr->setDefaultMagFilteringMode( fTexIsoFilteringMag );
+    texmgr->setDefaultCompressionMode( compTex );
+    texmgr->setDefaultBorder( bBorder );
+    texmgr->setDefaultTextureWrappingMode( twS, twT );
 
     return tex ? texmgr->getAttachedIndex(*tex) : -1;
 }
@@ -1450,8 +1450,8 @@ GFXCORE2_API DELPHI_INTEGER __stdcall tmcsCreateBlankTexture(DELPHI_INTEGER widt
         return -1;
     }
     
-    texmgr->SetDefaultIsoFilteringMode(finalMinFiltering, finalMagFiltering);
-    texmgr->SetDefaultTextureWrappingMode(finalTW_S, finalTW_T);
+    texmgr->setDefaultIsoFilteringMode(finalMinFiltering, finalMagFiltering);
+    texmgr->setDefaultTextureWrappingMode(finalTW_S, finalTW_T);
 
     PRRETexture* const tex = texmgr->createTextureFromImage(*img);
 
@@ -1459,9 +1459,9 @@ GFXCORE2_API DELPHI_INTEGER __stdcall tmcsCreateBlankTexture(DELPHI_INTEGER widt
     texLastCreateBlank = tex;
 
     // load original texmanager settings
-    texmgr->SetDefaultMinFilteringMode( fTexIsoFilteringMin );
-    texmgr->SetDefaultMagFilteringMode( fTexIsoFilteringMag );
-    texmgr->SetDefaultTextureWrappingMode( twS, twT );
+    texmgr->setDefaultMinFilteringMode( fTexIsoFilteringMin );
+    texmgr->setDefaultMagFilteringMode( fTexIsoFilteringMag );
+    texmgr->setDefaultTextureWrappingMode( twS, twT );
 
     return tex ? texmgr->getAttachedIndex(*tex) : -1;
 }
