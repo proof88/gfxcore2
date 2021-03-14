@@ -212,7 +212,6 @@
     <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Object3D\PRREVertexTransferMode.h" />
     <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\PR00FsReducedRenderingEngine.h" />
     <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\PRREallHeaders.h" />
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\PRREBaseClass.h" />
     <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\PRRECamera.h" />
     <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\PRREFiledManager.h" />
     <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\PRREManager.h" />

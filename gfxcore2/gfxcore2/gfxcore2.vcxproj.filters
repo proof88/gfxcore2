@@ -54,9 +54,6 @@
     <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\PRREallHeaders.h">
       <Filter>Header Files\PGE\PRRE</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\PRREBaseClass.h">
-      <Filter>Header Files\PGE\PRRE</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\PRRECamera.h">
       <Filter>Header Files\PGE\PRRE</Filter>
     </ClInclude>
