@@ -86,7 +86,7 @@ void StrConvStrToDelphiStr(const std::string& sCStr, DELPHI_TSTR40_RET& sDestStr
     @return The appropriate PRRE blend factor for the given GL enum.
             PRRE_ZERO for invalid GL enum.
 */
-TPRRE_BLENDFACTORS getPRREblendFromGLblend(GLenum glb)
+TPRRE_BLENDFACTOR getPRREBlendFromGLBlend(GLenum glb)
 {
     switch( glb )
     {
@@ -1063,8 +1063,8 @@ GFXCORE2_API void __stdcall tmcsSetObjectBlendMode(DELPHI_WORD num, DELPHI_TGLCO
         // setBlendFuncs() is not recommended to be called from this lib because it doesn't invoke setDestinationBlendFunc()
         // if setSourceBlendFunc() is failed prior to it. And PR00FPS actually requests invalid source blend func sometimes ...
         // So we need to work around that by calling the 2 functions here separately.
-        obj->getMaterial().setSourceBlendFunc(getPRREblendFromGLblend((GLenum) sfactor));
-        obj->getMaterial().setDestinationBlendFunc(getPRREblendFromGLblend((GLenum) dfactor));
+        obj->getMaterial().setSourceBlendFunc(getPRREBlendFromGLBlend((GLenum) sfactor));
+        obj->getMaterial().setDestinationBlendFunc(getPRREBlendFromGLBlend((GLenum) dfactor));
     }
 }
 
