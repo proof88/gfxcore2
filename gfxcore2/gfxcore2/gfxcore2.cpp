@@ -619,12 +619,12 @@ GFXCORE2_API void __stdcall tmcsMultiTexAssignObject(DELPHI_WORD index1, DELPHI_
         if ( obj1Sub && obj2Sub )
         {
             // copying lightmap data into obj1 material's 2nd layer
-            obj1Sub->getMaterial().copyFromMaterial(obj2Sub->getMaterial(), 1, 0);
+            obj1Sub->getMaterial(false).copyFromMaterial(obj2Sub->getMaterial(), 1, 0);
             // setBlendFuncs() is not recommended to be called from this lib because it doesn't invoke setDestinationBlendFunc()
             // if setSourceBlendFunc() is failed prior to it. And PR00FPS actually requests invalid source blend func sometimes ...
             // So we need to work around that by calling the 2 functions here separately.
-            obj1Sub->getMaterial().setSourceBlendFunc(obj1Sub->getMaterial().getSourceBlendFunc(), 1);
-            obj1Sub->getMaterial().setDestinationBlendFunc(obj1Sub->getMaterial().getDestinationBlendFunc(), 1);
+            obj1Sub->getMaterial(false).setSourceBlendFunc(obj1Sub->getMaterial().getSourceBlendFunc(), 1);
+            obj1Sub->getMaterial(false).setDestinationBlendFunc(obj1Sub->getMaterial().getDestinationBlendFunc(), 1);
         }
     }
 
@@ -1063,8 +1063,8 @@ GFXCORE2_API void __stdcall tmcsSetObjectBlendMode(DELPHI_WORD num, DELPHI_TGLCO
         // setBlendFuncs() is not recommended to be called from this lib because it doesn't invoke setDestinationBlendFunc()
         // if setSourceBlendFunc() is failed prior to it. And PR00FPS actually requests invalid source blend func sometimes ...
         // So we need to work around that by calling the 2 functions here separately.
-        obj->getMaterial().setSourceBlendFunc(getPRREBlendFromGLBlend((GLenum) sfactor));
-        obj->getMaterial().setDestinationBlendFunc(getPRREBlendFromGLBlend((GLenum) dfactor));
+        obj->getMaterial(false).setSourceBlendFunc(getPRREBlendFromGLBlend((GLenum) sfactor));
+        obj->getMaterial(false).setDestinationBlendFunc(getPRREBlendFromGLBlend((GLenum) dfactor));
     }
 }
 
@@ -1076,7 +1076,7 @@ GFXCORE2_API void __stdcall tmcsSetObjectBlending(DELPHI_WORD num, DELPHI_BOOLEA
     // so here if state is FALSE then I set non-blending blendmodes.
     PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(num);
     if ( obj && !state )
-        obj->getMaterial().setBlendFuncs(PRRE_ONE, PRRE_ZERO);
+        obj->getMaterial(false).setBlendFuncs(PRRE_ONE, PRRE_ZERO);
 
     return;
 }
