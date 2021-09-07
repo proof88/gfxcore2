@@ -623,8 +623,8 @@ GFXCORE2_API void __stdcall tmcsMultiTexAssignObject(DELPHI_WORD index1, DELPHI_
             // setBlendFuncs() is not recommended to be called from this lib because it doesn't invoke setDestinationBlendFunc()
             // if setSourceBlendFunc() is failed prior to it. And PR00FPS actually requests invalid source blend func sometimes ...
             // So we need to work around that by calling the 2 functions here separately.
-            obj1Sub->getMaterial(false).setSourceBlendFunc(obj1Sub->getMaterial().getSourceBlendFunc(), 1);
-            obj1Sub->getMaterial(false).setDestinationBlendFunc(obj1Sub->getMaterial().getDestinationBlendFunc(), 1);
+            obj1Sub->getMaterial(false).setSourceBlendFunc(obj1Sub->getMaterial(false).getSourceBlendFunc(), 1);
+            obj1Sub->getMaterial(false).setDestinationBlendFunc(obj1Sub->getMaterial(false).getDestinationBlendFunc(), 1);
         }
     }
 
