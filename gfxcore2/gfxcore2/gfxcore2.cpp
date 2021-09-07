@@ -619,7 +619,7 @@ GFXCORE2_API void __stdcall tmcsMultiTexAssignObject(DELPHI_WORD index1, DELPHI_
         if ( obj1Sub && obj2Sub )
         {
             // copying lightmap data into obj1 material's 2nd layer
-            obj1Sub->getMaterial(false).copyFromMaterial(obj2Sub->getMaterial(), 1, 0);
+            obj1Sub->getMaterial(false).copyFromMaterial(obj2Sub->getMaterial(false), 1, 0);
             // setBlendFuncs() is not recommended to be called from this lib because it doesn't invoke setDestinationBlendFunc()
             // if setSourceBlendFunc() is failed prior to it. And PR00FPS actually requests invalid source blend func sometimes ...
             // So we need to work around that by calling the 2 functions here separately.
@@ -992,14 +992,14 @@ GFXCORE2_API void __stdcall tmcsSetObjectColor(DELPHI_WORD num, DELPHI_BYTE r, D
         return;
 
     // currently new engine doesn't support vertex colors, so let's just set texture env color
-    obj->getMaterial().getTextureEnvColor().Set(r, g, b, obj->getMaterial().getTextureEnvColor().getAlpha());
+    obj->getMaterial(false).getTextureEnvColor().Set(r, g, b, obj->getMaterial(false).getTextureEnvColor().getAlpha());
 
     for (TPRREuint i = 0; i < obj->getCount(); i++)
     {
         PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(i);
         if ( subobj )
         {
-            PRREMaterial& const mat = subobj->getMaterial();
+            PRREMaterial& const mat = subobj->getMaterial(false);
             for (TPRREuint j = 0; j < mat.getColorsCount(); j++)
             {
                 mat.getColors()[j].red = r;
@@ -1016,10 +1016,10 @@ GFXCORE2_API DELPHI_TRGBA  __stdcall tmcsGetObjectColorKey(DELPHI_WORD num)
     DELPHI_TRGBA clrRet;
     if ( obj )
     {
-        clrRet.red = obj->getMaterial().getTextureEnvColor().getRed();
-        clrRet.green = obj->getMaterial().getTextureEnvColor().getGreen();
-        clrRet.blue = obj->getMaterial().getTextureEnvColor().getBlue();
-        clrRet.alpha = obj->getMaterial().getTextureEnvColor().getAlpha();
+        clrRet.red = obj->getMaterial(false).getTextureEnvColor().getRed();
+        clrRet.green = obj->getMaterial(false).getTextureEnvColor().getGreen();
+        clrRet.blue = obj->getMaterial(false).getTextureEnvColor().getBlue();
+        clrRet.alpha = obj->getMaterial(false).getTextureEnvColor().getAlpha();
     }
     else
     {
@@ -1034,7 +1034,7 @@ GFXCORE2_API void __stdcall tmcsSetObjectColorKey(DELPHI_WORD num, DELPHI_BYTE r
     PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(num);
 
     if ( obj )
-        obj->getMaterial().getTextureEnvColor().Set(r, g, b, a);
+        obj->getMaterial(false).getTextureEnvColor().Set(r, g, b, a);
 }
 
 GFXCORE2_API void __stdcall tmcsSetObjectAlpha(DELPHI_WORD num, DELPHI_BYTE a)
@@ -1048,7 +1048,7 @@ GFXCORE2_API void __stdcall tmcsSetObjectAlpha(DELPHI_WORD num, DELPHI_BYTE a)
         PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(i);
         if ( subobj )
         {
-            PRREMaterial& const mat = subobj->getMaterial();
+            PRREMaterial& const mat = subobj->getMaterial(false);
             for (TPRREuint j = 0; j < mat.getColorsCount(); j++)
                 mat.getColors()[j].alpha = a;
         }
@@ -1570,7 +1570,7 @@ GFXCORE2_API void  __stdcall tmcsMultiplyUVCoords(DELPHI_WORD num, DELPHI_SINGLE
         PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(i);
         if ( subobj )
         {
-            PRREMaterial& const mat = subobj->getMaterial();
+            PRREMaterial& const mat = subobj->getMaterial(false);
             for (TPRREuint j = 0; j < mat.getTexcoordsCount(); j++)
             {
                 mat.getTexcoords()[j].u *= factorw;
@@ -1591,7 +1591,7 @@ GFXCORE2_API void  __stdcall tmcsAdjustUVCoords(DELPHI_WORD num, DELPHI_SINGLE f
         PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(i);
         if ( subobj )
         {
-            PRREMaterial& const mat = subobj->getMaterial();
+            PRREMaterial& const mat = subobj->getMaterial(false);
             for (TPRREuint j = 0; j < mat.getTexcoordsCount(); j++)
             {
                 if ( mat.getTexcoords()[j].u == 0.0f )
