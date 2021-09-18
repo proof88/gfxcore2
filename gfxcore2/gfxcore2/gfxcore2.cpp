@@ -230,6 +230,7 @@ GFXCORE2_API void __stdcall tmcsEnableDebugging()
         CConsole::getConsoleInstance().SetFloatsColor( FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY, "FFFF00" );
         CConsole::getConsoleInstance().SetBoolsColor( FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY, "00FFFF" );
         #endif
+        PR00FsReducedRenderingEngine::createAndGet().SetAutoWriteStatsAtShutdown(true);
     }
 }
 
@@ -241,6 +242,7 @@ GFXCORE2_API void __stdcall tmcsDisableDebugging()
         #ifdef PGE_CCONSOLE_IS_ENABLED
         CConsole::getConsoleInstance().Deinitialize();
         #endif
+        PR00FsReducedRenderingEngine::createAndGet().SetAutoWriteStatsAtShutdown(false);
     }
 }
 
