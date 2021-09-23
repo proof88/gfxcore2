@@ -150,3 +150,9 @@ EXPORTS
   tmcsSetTextBlendingState
   tmcsSetTextBlendMode
   tmcsGetTextWidth
+  tmcsSetRenderPath
+  tmcsSetOcclusionCullingMethod
+  tmcsSetOcclusionCullingBoundingBoxes
+  tmcsSetOcclusionCullingDrawIfPending
+  tmcsSetOrderingByDistance
+  tmcsEngineDump

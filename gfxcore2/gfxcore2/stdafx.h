@@ -30,5 +30,6 @@
 #include "../../../CConsole/CConsole/src/CConsole.h"
 #include "../../../PFL/PFL/PFL.h"
 #include "../../../PGE/PGE/PRRE/include/external/PR00FsReducedRenderingEngine.h"
+#include "../../../PGE/PGE/PRRE/include/external/Render/PRRERendererHWfixedPipe.h"
 #include "../../../PGE/PGE/PRRE/include/external/Math/PRREVector.h"
 #include "../../../PGE/PGE/PRRE/include/external/Math/PRREMatrix.h"

@@ -1763,3 +1763,80 @@ GFXCORE2_API DELPHI_INTEGER __stdcall tmcsGetTextWidth(DELPHI_TSTR255 text, DELP
         return 0;
 }
 
+GFXCORE2_API void __stdcall tmcsSetRenderPath(DELPHI_WORD renderPath)
+{
+    std::string sRenderPath;
+    switch (renderPath)
+    {
+    case 0: sRenderPath = "Legacy PR00FPS";
+        break;
+    case 1: sRenderPath = "Distance Ordered";
+        break;
+    default: sRenderPath = "Occlusion Culled";
+    }
+    CConsole::getConsoleInstance().OLn("%s: %u: %s", __FUNCTION__, renderPath, sRenderPath.c_str());
+
+    TPRRE_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
+    BITF_SET(renderHints, renderPath, PRRE_RH_RENDER_PATH_BITS, 3);
+    prre->getRenderer()->SetRenderHints(renderHints);
+}
+
+GFXCORE2_API void __stdcall tmcsSetOcclusionCullingMethod(DELPHI_WORD ocMethod)
+{
+    std::string sOcMethod;
+    switch (ocMethod)
+    {
+    case 0: sOcMethod = "Sync";
+        break;
+    default: sOcMethod = "ASync";
+    }
+    CConsole::getConsoleInstance().OLn("%s: %u: %s", __FUNCTION__, ocMethod, sOcMethod.c_str());
+
+    TPRRE_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
+    BITF_SET(renderHints, ocMethod, PRRE_RH_OQ_METHOD_BITS, 2);
+    prre->getRenderer()->SetRenderHints(renderHints);
+}
+
+GFXCORE2_API void __stdcall tmcsSetOcclusionCullingBoundingBoxes(DELPHI_BOOLEAN state)
+{
+    CConsole::getConsoleInstance().OLn("%s: %b", __FUNCTION__, state);
+
+    TPRRE_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
+    BITF_SET(renderHints, state, PRRE_RH_OQ_DRAW_BOUNDING_BOXES_BIT, 1);
+    prre->getRenderer()->SetRenderHints(renderHints);
+}
+
+GFXCORE2_API void __stdcall tmcsSetOcclusionCullingDrawIfPending(DELPHI_BOOLEAN state)
+{
+    CConsole::getConsoleInstance().OLn("%s: %b", __FUNCTION__, state);
+
+    TPRRE_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
+    BITF_SET(renderHints, state, PRRE_RH_OQ_DRAW_IF_QUERY_PENDING_BIT, 1);
+    prre->getRenderer()->SetRenderHints(renderHints);
+}
+
+GFXCORE2_API void __stdcall tmcsSetOrderingByDistance(DELPHI_BOOLEAN state)
+{
+    CConsole::getConsoleInstance().OLn("%s: %b", __FUNCTION__, state);
+
+    TPRRE_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
+    BITF_SET(renderHints, state, PRRE_RH_ORDERING_BY_DISTANCE_BIT, 1);
+    prre->getRenderer()->SetRenderHints(renderHints);
+}
+
+GFXCORE2_API void __stdcall tmcsEngineDump()
+{
+    if ( bDebugEnabled )
+    {
+        CConsole::getConsoleInstance().SetLoggingState("4LLM0DUL3S", true);
+    }
+
+    prre->WriteList();
+
+    if ( bDebugEnabled )
+    {
+        CConsole::getConsoleInstance().SetLoggingState("4LLM0DUL3S", false);
+    }
+}
+
+

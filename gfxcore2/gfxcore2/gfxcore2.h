@@ -446,3 +446,9 @@ GFXCORE2_API void           __stdcall tmcsSetTextBlendingState(DELPHI_BOOLEAN st
 GFXCORE2_API void           __stdcall tmcsSetTextBlendMode(DELPHI_TGLCONST sfactor, DELPHI_TGLCONST dfactor);
 GFXCORE2_API DELPHI_INTEGER __stdcall tmcsGetTextWidth(DELPHI_TSTR255 text, DELPHI_WORD fontheight, DELPHI_WORD scaling);
 
+GFXCORE2_API void __stdcall tmcsSetRenderPath(DELPHI_WORD renderPath);
+GFXCORE2_API void __stdcall tmcsSetOcclusionCullingMethod(DELPHI_WORD ocMethod);
+GFXCORE2_API void __stdcall tmcsSetOcclusionCullingBoundingBoxes(DELPHI_BOOLEAN state);
+GFXCORE2_API void __stdcall tmcsSetOcclusionCullingDrawIfPending(DELPHI_BOOLEAN state);
+GFXCORE2_API void __stdcall tmcsSetOrderingByDistance(DELPHI_BOOLEAN state);
+GFXCORE2_API void __stdcall tmcsEngineDump();
