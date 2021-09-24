@@ -1824,6 +1824,22 @@ GFXCORE2_API void __stdcall tmcsSetOrderingByDistance(DELPHI_BOOLEAN state)
     prre->getRenderer()->SetRenderHints(renderHints);
 }
 
+GFXCORE2_API void __stdcall tmcsResetStatistics()
+{
+    if ( bDebugEnabled )
+    {
+        CConsole::getConsoleInstance().SetLoggingState("4LLM0DUL3S", true);
+    }
+
+    CConsole::getConsoleInstance().OLn("%s", __FUNCTION__);
+    prre->getRenderer()->ResetStatistics();
+
+    if ( bDebugEnabled )
+    {
+        CConsole::getConsoleInstance().SetLoggingState("4LLM0DUL3S", false);
+    }
+}
+
 GFXCORE2_API void __stdcall tmcsEngineDump()
 {
     if ( bDebugEnabled )

@@ -155,4 +155,5 @@ EXPORTS
   tmcsSetOcclusionCullingBoundingBoxes
   tmcsSetOcclusionCullingDrawIfPending
   tmcsSetOrderingByDistance
+  tmcsResetStatistics
   tmcsEngineDump
