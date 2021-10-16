@@ -833,7 +833,7 @@ GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetAngleZ(DELPHI_WORD index)
 GFXCORE2_API DELPHI_BOOLEAN __stdcall tmcsIsVisible(DELPHI_WORD index)
 {
     const PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(index);
-    return obj ? obj->isVisible() : false;
+    return obj ? obj->isRenderingAllowed() : false;
 }
 
 GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetScaling(DELPHI_WORD index)
@@ -1123,7 +1123,7 @@ GFXCORE2_API DELPHI_BOOLEAN __stdcall tmcsSubIsVisible(DELPHI_WORD num1, DELPHI_
     if ( num1 )
     {
         const PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(num2);
-        return subobj ? subobj->isVisible() : false;
+        return subobj ? subobj->isRenderingAllowed() : false;
     }
     return false;
 }
