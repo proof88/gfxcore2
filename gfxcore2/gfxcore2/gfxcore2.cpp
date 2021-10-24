@@ -1087,7 +1087,7 @@ GFXCORE2_API void __stdcall tmcsSetObjectBlending(DELPHI_WORD num, DELPHI_BOOLEA
 GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetSubXPos(DELPHI_WORD num1, DELPHI_WORD num2)
 {
     const PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(num1);
-    if ( num1 )
+    if ( obj )
     {
         const PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(num2);
         return subobj ? subobj->getPosVec().getX() : 0.f;
@@ -1098,7 +1098,7 @@ GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetSubXPos(DELPHI_WORD num1, DELPHI_WOR
 GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetSubYPos(DELPHI_WORD num1, DELPHI_WORD num2)
 {
     const PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(num1);
-    if ( num1 )
+    if ( obj )
     {
         const PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(num2);
         return subobj ? subobj->getPosVec().getY() : 0.f;
@@ -1109,7 +1109,7 @@ GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetSubYPos(DELPHI_WORD num1, DELPHI_WOR
 GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetSubZPos(DELPHI_WORD num1, DELPHI_WORD num2)
 {
     const PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(num1);
-    if ( num1 )
+    if ( obj )
     {
         const PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(num2);
         return subobj ? subobj->getPosVec().getZ() : 0.f;
@@ -1120,7 +1120,7 @@ GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetSubZPos(DELPHI_WORD num1, DELPHI_WOR
 GFXCORE2_API DELPHI_BOOLEAN __stdcall tmcsSubIsVisible(DELPHI_WORD num1, DELPHI_WORD num2)
 {
     const PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(num1);
-    if ( num1 )
+    if ( obj )
     {
         const PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(num2);
         return subobj ? subobj->isRenderingAllowed() : false;
@@ -1131,7 +1131,7 @@ GFXCORE2_API DELPHI_BOOLEAN __stdcall tmcsSubIsVisible(DELPHI_WORD num1, DELPHI_
 GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetSubSizeX(DELPHI_WORD num1, DELPHI_WORD num2)
 {
     const PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(num1);
-    if ( num1 )
+    if ( obj )
     {
         const PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(num2);
         return subobj ? subobj->getSizeVec().getX() : 0.f;
@@ -1142,7 +1142,7 @@ GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetSubSizeX(DELPHI_WORD num1, DELPHI_WO
 GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetSubSizeY(DELPHI_WORD num1, DELPHI_WORD num2)
 {
     const PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(num1);
-    if ( num1 )
+    if ( obj )
     {
         const PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(num2);
         return subobj ? subobj->getSizeVec().getY() : 0.f;
@@ -1153,7 +1153,7 @@ GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetSubSizeY(DELPHI_WORD num1, DELPHI_WO
 GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetSubSizeZ(DELPHI_WORD num1, DELPHI_WORD num2)
 {
     const PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(num1);
-    if ( num1 )
+    if ( obj )
     {
         const PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(num2);
         return subobj ? subobj->getSizeVec().getZ() : 0.f;
@@ -1165,7 +1165,7 @@ GFXCORE2_API DELPHI_TSTR40_RET __stdcall tmcsGetSubName(DELPHI_WORD num1, DELPHI
 {
     DELPHI_TSTR40_RET retVal = {};
     const PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(num1);
-    if ( num1 )
+    if ( obj )
     {
         const PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(num2);
         if ( subobj )
@@ -1177,7 +1177,7 @@ GFXCORE2_API DELPHI_TSTR40_RET __stdcall tmcsGetSubName(DELPHI_WORD num1, DELPHI
 GFXCORE2_API void __stdcall tmcsSetSubXPos(DELPHI_WORD num1, DELPHI_WORD num2, DELPHI_SINGLE factor)
 {
     const PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(num1);
-    if ( num1 )
+    if ( obj )
     {
         PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(num2);
         if ( subobj )
@@ -1188,7 +1188,7 @@ GFXCORE2_API void __stdcall tmcsSetSubXPos(DELPHI_WORD num1, DELPHI_WORD num2, D
 GFXCORE2_API void __stdcall tmcsSetSubYPos(DELPHI_WORD num1, DELPHI_WORD num2, DELPHI_SINGLE factor)
 {
     const PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(num1);
-    if ( num1 )
+    if ( obj )
     {
         PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(num2);
         if ( subobj )
@@ -1199,7 +1199,7 @@ GFXCORE2_API void __stdcall tmcsSetSubYPos(DELPHI_WORD num1, DELPHI_WORD num2, D
 GFXCORE2_API void __stdcall tmcsSetSubZPos(DELPHI_WORD num1, DELPHI_WORD num2, DELPHI_SINGLE factor)
 {
     const PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(num1);
-    if ( num1 )
+    if ( obj )
     {
         PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(num2);
         if ( subobj )
@@ -1210,7 +1210,7 @@ GFXCORE2_API void __stdcall tmcsSetSubZPos(DELPHI_WORD num1, DELPHI_WORD num2, D
 GFXCORE2_API void __stdcall tmcsShowSubObject(DELPHI_WORD num1, DELPHI_WORD num2)
 {
     const PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(num1);
-    if ( num1 )
+    if ( obj )
     {
         PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(num2);
         if ( subobj )
@@ -1221,7 +1221,7 @@ GFXCORE2_API void __stdcall tmcsShowSubObject(DELPHI_WORD num1, DELPHI_WORD num2
 GFXCORE2_API void __stdcall tmcsHideSubObject(DELPHI_WORD num1, DELPHI_WORD num2)
 {
     const PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(num1);
-    if ( num1 )
+    if ( obj )
     {
         PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(num2);
         if ( subobj )
@@ -1232,7 +1232,7 @@ GFXCORE2_API void __stdcall tmcsHideSubObject(DELPHI_WORD num1, DELPHI_WORD num2
 GFXCORE2_API void __stdcall tmcsSetSubName(DELPHI_WORD num1, DELPHI_WORD num2, DELPHI_TSTR40 name)
 {
     const PRREObject3D* const obj = (PRREObject3D*) objmgr->getAttachedAt(num1);
-    if ( num1 )
+    if ( obj )
     {
         DELPHI_TSTR40 strTmpBuffer;
         PRREObject3D* const subobj = (PRREObject3D*) obj->getAttachedAt(num2);
