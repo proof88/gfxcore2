@@ -139,6 +139,7 @@
       <BrowseInformation>true</BrowseInformation>
       <TreatWarningAsError>false</TreatWarningAsError>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -168,6 +169,7 @@
       <BrowseInformation>true</BrowseInformation>
       <TreatWarningAsError>false</TreatWarningAsError>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -197,6 +199,7 @@
       <BrowseInformation>true</BrowseInformation>
       <TreatWarningAsError>false</TreatWarningAsError>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -224,6 +227,7 @@
       <BrowseInformation>true</BrowseInformation>
       <TreatWarningAsError>false</TreatWarningAsError>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -256,6 +260,7 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -288,6 +293,7 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -316,6 +322,7 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
