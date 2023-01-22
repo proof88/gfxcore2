@@ -5,7 +5,7 @@
     gfxcore2.h
     Main header of gfxcore2.
     This DLL is to be used by the legacy PR00FPS made in 2007.
-    This DLL is only a wrapper so the old PR00FPS can utilize my new engine: PRRE.
+    This DLL is only a wrapper so the old PR00FPS can utilize my new engine: Pure.
     Aim is to avoid any modification to PR00FPS code, the change is totally transparent.
     Made by PR00F88
     EMAIL : PR0o0o0o0o0o0o0o0o0o0oF88@gmail.com

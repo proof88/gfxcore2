@@ -16,25 +16,25 @@
     <Filter Include="Header Files\PGE">
       <UniqueIdentifier>{c91785f6-218d-4c40-8a9a-3f87a61e4ae3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\PGE\PRRE">
+    <Filter Include="Header Files\PGE\PURE">
       <UniqueIdentifier>{9a12646e-2380-4682-b7a6-7cdd0b5b3aea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\PGE\PRRE\Display">
+    <Filter Include="Header Files\PGE\PURE\Display">
       <UniqueIdentifier>{cb788b70-102f-4316-b497-92b04443eafe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\PGE\PRRE\Hardware">
+    <Filter Include="Header Files\PGE\PURE\Hardware">
       <UniqueIdentifier>{c697bb94-4d25-4c48-ad33-7b93dfed452e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\PGE\PRRE\Material">
+    <Filter Include="Header Files\PGE\PURE\Material">
       <UniqueIdentifier>{dea9b8e8-682f-4162-a914-dc646df77a9b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\PGE\PRRE\Object3D">
+    <Filter Include="Header Files\PGE\PURE\Object3D">
       <UniqueIdentifier>{6ec22d62-ee32-454b-b19c-342ff80c2cb8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\PGE\PRRE\Render">
+    <Filter Include="Header Files\PGE\PURE\Render">
       <UniqueIdentifier>{b7f00aeb-e3f3-4ae1-b12c-74dda557a4ec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\PGE\PRRE\Math">
+    <Filter Include="Header Files\PGE\PURE\Math">
       <UniqueIdentifier>{50fb4ea4-4c98-4fed-807a-6a282a85aaa8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -49,97 +49,97 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\PR00FsReducedRenderingEngine.h">
-      <Filter>Header Files\PGE\PRRE</Filter>
+      <Filter>Header Files\PGE\PURE</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\PRREallHeaders.h">
-      <Filter>Header Files\PGE\PRRE</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Display\PureScreen.h">
+      <Filter>Header Files\PGE\PURE\Display</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\PRRECamera.h">
-      <Filter>Header Files\PGE\PRRE</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Display\PureWindow.h">
+      <Filter>Header Files\PGE\PURE\Display</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\PRREFiledManager.h">
-      <Filter>Header Files\PGE\PRRE</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Hardware\PureHwAudio.h">
+      <Filter>Header Files\PGE\PURE\Hardware</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\PRREManager.h">
-      <Filter>Header Files\PGE\PRRE</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Hardware\PureHwBase.h">
+      <Filter>Header Files\PGE\PURE\Hardware</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\PRREtypes.h">
-      <Filter>Header Files\PGE\PRRE</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Hardware\PureHwCentralProcessor.h">
+      <Filter>Header Files\PGE\PURE\Hardware</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\PRREuiManager.h">
-      <Filter>Header Files\PGE\PRRE</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Hardware\PureHwInfo.h">
+      <Filter>Header Files\PGE\PURE\Hardware</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Display\PRREScreen.h">
-      <Filter>Header Files\PGE\PRRE\Display</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Hardware\PureHwSystemMemory.h">
+      <Filter>Header Files\PGE\PURE\Hardware</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Display\PRREWindow.h">
-      <Filter>Header Files\PGE\PRRE\Display</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Hardware\PureHwVideo.h">
+      <Filter>Header Files\PGE\PURE\Hardware</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Hardware\PRREhwAudio.h">
-      <Filter>Header Files\PGE\PRRE\Hardware</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Material\PureColor.h">
+      <Filter>Header Files\PGE\PURE\Material</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Hardware\PRREhwBase.h">
-      <Filter>Header Files\PGE\PRRE\Hardware</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Material\PureImageManager.h">
+      <Filter>Header Files\PGE\PURE\Material</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Hardware\PRREhwCentralProcessor.h">
-      <Filter>Header Files\PGE\PRRE\Hardware</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Material\PureMaterialManager.h">
+      <Filter>Header Files\PGE\PURE\Material</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Hardware\PRREhwInfo.h">
-      <Filter>Header Files\PGE\PRRE\Hardware</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Material\PureTextureManager.h">
+      <Filter>Header Files\PGE\PURE\Material</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Hardware\PRREhwSystemMemory.h">
-      <Filter>Header Files\PGE\PRRE\Hardware</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Math\PureMatrix.h">
+      <Filter>Header Files\PGE\PURE\Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Hardware\PRREhwVideo.h">
-      <Filter>Header Files\PGE\PRRE\Hardware</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Math\PurePosUpTarget.h">
+      <Filter>Header Files\PGE\PURE\Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Material\PRREColor.h">
-      <Filter>Header Files\PGE\PRRE\Material</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Math\PureTransformMatrix.h">
+      <Filter>Header Files\PGE\PURE\Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Material\PRREImageManager.h">
-      <Filter>Header Files\PGE\PRRE\Material</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Math\PureVector.h">
+      <Filter>Header Files\PGE\PURE\Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Material\PRREMaterialManager.h">
-      <Filter>Header Files\PGE\PRRE\Material</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Object3D\PureMesh3DManager.h">
+      <Filter>Header Files\PGE\PURE\Object3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Material\PRRETextureManager.h">
-      <Filter>Header Files\PGE\PRRE\Material</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Object3D\PureObject3DManager.h">
+      <Filter>Header Files\PGE\PURE\Object3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Math\PRREMatrix.h">
-      <Filter>Header Files\PGE\PRRE\Math</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Object3D\PureVertexTransferMode.h">
+      <Filter>Header Files\PGE\PURE\Object3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Math\PRREPosUpTarget.h">
-      <Filter>Header Files\PGE\PRRE\Math</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Render\PureIIncrementalRenderPipeline.h">
+      <Filter>Header Files\PGE\PURE\Render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Math\PRRETransformMatrix.h">
-      <Filter>Header Files\PGE\PRRE\Math</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Render\PureIRenderable.h">
+      <Filter>Header Files\PGE\PURE\Render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Math\PRREVector.h">
-      <Filter>Header Files\PGE\PRRE\Math</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Render\PureIRenderer.h">
+      <Filter>Header Files\PGE\PURE\Render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Object3D\PRREMesh3DManager.h">
-      <Filter>Header Files\PGE\PRRE\Object3D</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Render\PureRendererHWfixedPipe.h">
+      <Filter>Header Files\PGE\PURE\Render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Object3D\PRREObject3DManager.h">
-      <Filter>Header Files\PGE\PRRE\Object3D</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Render\PureRendererSWincremental.h">
+      <Filter>Header Files\PGE\PURE\Render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Object3D\PRREVertexTransferMode.h">
-      <Filter>Header Files\PGE\PRRE\Object3D</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\PureAllHeaders.h">
+      <Filter>Header Files\PGE\PURE</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Render\PRREIIncrementalRenderPipeline.h">
-      <Filter>Header Files\PGE\PRRE\Render</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\PureCamera.h">
+      <Filter>Header Files\PGE\PURE</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Render\PRREIRenderable.h">
-      <Filter>Header Files\PGE\PRRE\Render</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\PureFiledManager.h">
+      <Filter>Header Files\PGE\PURE</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Render\PRREIRenderer.h">
-      <Filter>Header Files\PGE\PRRE\Render</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\PureManager.h">
+      <Filter>Header Files\PGE\PURE</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Render\PRRERendererHWfixedPipe.h">
-      <Filter>Header Files\PGE\PRRE\Render</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\PureTypes.h">
+      <Filter>Header Files\PGE\PURE</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\Render\PRRERendererSWincremental.h">
-      <Filter>Header Files\PGE\PRRE\Render</Filter>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\PureUiManager.h">
+      <Filter>Header Files\PGE\PURE</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
