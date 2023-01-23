@@ -35,8 +35,8 @@ DELPHI_BYTE   nMBlurUpdateRate = 0;
 DELPHI_TRGBA  clrMBlurColor;
 DELPHI_TRGBA  clrBgColor;
 
-TPure_XYZ     vLegacyCameraPos;    // we store camera pos XYZ values as set by caller legacy project and we also return this value, see details at related functions
-TPure_XYZ     vLegacyCameraAngle;  // we store camera angle XYZ values as set by caller legacy project and we also return this value, see details at related functions
+TPURE_XYZ     vLegacyCameraPos;    // we store camera pos XYZ values as set by caller legacy project and we also return this value, see details at related functions
+TPURE_XYZ     vLegacyCameraAngle;  // we store camera angle XYZ values as set by caller legacy project and we also return this value, see details at related functions
 
 // default texture settings for external objects
 DELPHI_BOOLEAN  bExtMipmapping = true;
@@ -84,24 +84,24 @@ void StrConvStrToDelphiStr(const std::string& sCStr, DELPHI_TSTR40_RET& sDestStr
 
     Gets the appropriate Pure blend factor for the given GL enum.
     @return The appropriate Pure blend factor for the given GL enum.
-            Pure_ZERO for invalid GL enum.
+            PURE_ZERO for invalid GL enum.
 */
-TPure_BLENDFACTOR getPureBlendFromGLBlend(GLenum glb)
+TPURE_BLENDFACTOR getPureBlendFromGLBlend(GLenum glb)
 {
     switch( glb )
     {
-    case GL_ZERO                : return Pure_ZERO;
-    case GL_ONE                 : return Pure_ONE;
-    case GL_SRC_COLOR           : return Pure_SRC_COLOR;
-    case GL_ONE_MINUS_SRC_COLOR : return Pure_ONE_MINUS_SRC_COLOR;
-    case GL_DST_COLOR           : return Pure_DST_COLOR;
-    case GL_ONE_MINUS_DST_COLOR : return Pure_ONE_MINUS_DST_COLOR;
-    case GL_SRC_ALPHA           : return Pure_SRC_ALPHA;
-    case GL_ONE_MINUS_SRC_ALPHA : return Pure_ONE_MINUS_SRC_ALPHA;
-    case GL_DST_ALPHA           : return Pure_DST_ALPHA;         
-    case GL_ONE_MINUS_DST_ALPHA : return Pure_ONE_MINUS_DST_ALPHA;
-    case GL_SRC_ALPHA_SATURATE  : return Pure_SRC_ALPHA_SATURATE;
-    default                     : return Pure_ZERO;
+    case GL_ZERO                : return PURE_ZERO;
+    case GL_ONE                 : return PURE_ONE;
+    case GL_SRC_COLOR           : return PURE_SRC_COLOR;
+    case GL_ONE_MINUS_SRC_COLOR : return PURE_ONE_MINUS_SRC_COLOR;
+    case GL_DST_COLOR           : return PURE_DST_COLOR;
+    case GL_ONE_MINUS_DST_COLOR : return PURE_ONE_MINUS_DST_COLOR;
+    case GL_SRC_ALPHA           : return PURE_SRC_ALPHA;
+    case GL_ONE_MINUS_SRC_ALPHA : return PURE_ONE_MINUS_SRC_ALPHA;
+    case GL_DST_ALPHA           : return PURE_DST_ALPHA;         
+    case GL_ONE_MINUS_DST_ALPHA : return PURE_ONE_MINUS_DST_ALPHA;
+    case GL_SRC_ALPHA_SATURATE  : return PURE_SRC_ALPHA_SATURATE;
+    default                     : return PURE_ZERO;
     }
 }
 
@@ -110,18 +110,18 @@ TPure_BLENDFACTOR getPureBlendFromGLBlend(GLenum glb)
     This is not yet implemented in Pure.
     HOPEFULLY LATER WE CAN INVOKE IT FROM MATERIALMANAGER.
 */
-TPure_TEX_WRAPPING getPuretexWrappingFromGLtexWrapping(GLenum glw)
+TPURE_TEX_WRAPPING getPuretexWrappingFromGLtexWrapping(GLenum glw)
 {
     switch (glw)
     {
-    case GL_CLAMP           : return Pure_TW_CLAMP;
-    case GL_REPEAT          : return Pure_TW_REPEAT;
-    case GL_MIRRORED_REPEAT : return Pure_TW_MIRRORED_REPEAT;
-    case GL_CLAMP_TO_BORDER : return Pure_TW_CLAMP_TO_BORDER;
-    case GL_CLAMP_TO_EDGE   : return Pure_TW_CLAMP_TO_EDGE;
+    case GL_CLAMP           : return PURE_TW_CLAMP;
+    case GL_REPEAT          : return PURE_TW_REPEAT;
+    case GL_MIRRORED_REPEAT : return PURE_TW_MIRRORED_REPEAT;
+    case GL_CLAMP_TO_BORDER : return PURE_TW_CLAMP_TO_BORDER;
+    case GL_CLAMP_TO_EDGE   : return PURE_TW_CLAMP_TO_EDGE;
     default:
         CConsole::getConsoleInstance().EOLn("getPuretexWrappingFromGLtexWrapping() wrapping branched to default!");
-        return Pure_TW_REPEAT;
+        return PURE_TW_REPEAT;
     }    
 }
 
@@ -147,22 +147,22 @@ GFXCORE2_API DELPHI_BYTE __stdcall tmcsInitGraphix(HWND wnd, DELPHI_BOOLEAN fs, 
     prre = &PR00FsReducedRenderingEngine::createAndGet();
 
     /* HACK: since shading is practically used for nothing, we indicate the renderer in this parameter now: GL_FLAT means SW renderer, other means HW renderer */
-    TPure_RENDERER renderer = ( (shading == GL_FLAT) ? Pure_RENDERER_SW : Pure_RENDERER_HW_FP );
+    TPURE_RENDERER renderer = ( (shading == GL_FLAT) ? PURE_RENDERER_SW : PURE_RENDERER_HW_FP );
     
     /* WA: if the window is already created outside by caller, its width and height should be our new width and height */
     /* this workaround is for PR00FPS and other legacy projects using tmcsgfxlib where window is created first outside and then grafix init happens with specifying already existing window */
-    TPureuint width = 0;
-    TPureuint height = 0;
+    TPureUInt width = 0;
+    TPureUInt height = 0;
     if ( wnd != NULL )
     {
         // theoretically we always end up here because legacy projects using tmcsgfxlib always create window outside first
         RECT rect;
         GetClientRect(wnd, &rect);
-        width = (TPureuint) rect.right - rect.left;
-        height = (TPureuint) rect.bottom - rect.top;
+        width = (TPureUInt) rect.right - rect.left;
+        height = (TPureUInt) rect.bottom - rect.top;
     }
 
-    DELPHI_BYTE nRetVal = (DELPHI_BYTE) prre->initialize(renderer, width, height, fs ? Pure_FULLSCREEN : Pure_WINDOWED, freq, cdepth, zdepth, 0, 0, wnd);
+    DELPHI_BYTE nRetVal = (DELPHI_BYTE) prre->initialize(renderer, width, height, fs ? PURE_FULLSCREEN : PURE_WINDOWED, freq, cdepth, zdepth, 0, 0, wnd);
 
     if ( nRetVal == 0 )
     {
@@ -393,7 +393,7 @@ GFXCORE2_API void __stdcall tmcsSetCameraX(DELPHI_SINGLE posx)
     // and we store the input values so we can easily return them when a legacy project queries ...
     vLegacyCameraPos.x = posx;
 
-    const TPurefloat dx = -posx - camera->getPosVec().getX();
+    const TPureFloat dx = -posx - camera->getPosVec().getX();
     camera->getPosVec().SetX(camera->getPosVec().getX() + dx);
     camera->getTargetVec().SetX(camera->getTargetVec().getX() + dx);
 }
@@ -403,7 +403,7 @@ GFXCORE2_API void __stdcall tmcsSetCameraY(DELPHI_SINGLE posy)
     // no compatibility issue with camera Y pos so far, but I still save it in legacy variable ...
     vLegacyCameraPos.y = posy;
 
-    const TPurefloat dy = posy - camera->getPosVec().getY();
+    const TPureFloat dy = posy - camera->getPosVec().getY();
     camera->getPosVec().SetY(camera->getPosVec().getY() + dy);
     camera->getTargetVec().SetY(camera->getTargetVec().getY() + dy);
 }
@@ -414,7 +414,7 @@ GFXCORE2_API void __stdcall tmcsSetCameraZ(DELPHI_SINGLE posz)
     // and we store the input values so we can easily return them when a legacy project queries ...
     vLegacyCameraPos.z = posz;
 
-    const TPurefloat dz = -posz - camera->getPosVec().getZ();
+    const TPureFloat dz = -posz - camera->getPosVec().getZ();
     camera->getPosVec().SetZ(camera->getPosVec().getZ() + dz);
     camera->getTargetVec().SetZ(camera->getTargetVec().getZ() + dz);
 }
@@ -483,22 +483,22 @@ GFXCORE2_API void __stdcall tmcsZRotateCamera(DELPHI_SINGLE angle)
 
 GFXCORE2_API void __stdcall tmcsSetCameraFov(DELPHI_DOUBLE fov)
 {
-    camera->SetFieldOfView((TPurefloat) fov);
+    camera->SetFieldOfView((TPureFloat) fov);
 }
 
 GFXCORE2_API void __stdcall tmcsSetCameraAspect(DELPHI_DOUBLE aspect)
 {
-    camera->SetAspectRatio((TPurefloat)aspect);
+    camera->SetAspectRatio((TPureFloat)aspect);
 }
 
 GFXCORE2_API void __stdcall tmcsSetCameraNearPlane(DELPHI_DOUBLE znear)
 {
-    camera->SetNearPlane((TPurefloat)znear);
+    camera->SetNearPlane((TPureFloat)znear);
 }
 
 GFXCORE2_API void __stdcall tmcsSetCameraFarPlane(DELPHI_DOUBLE zfar)
 {
-    camera->SetFarPlane((TPurefloat)zfar);
+    camera->SetFarPlane((TPureFloat)zfar);
 }
 
 
@@ -516,21 +516,21 @@ GFXCORE2_API DELPHI_INTEGER __stdcall tmcsGetNumSubObjects(DELPHI_WORD num)
 GFXCORE2_API DELPHI_INTEGER __stdcall tmcsCreatePlane(DELPHI_SINGLE w, DELPHI_SINGLE h)
 {
     // to mimic legacy engine, by default we create object in CLIENT memory, for that we need to select DYNAMIC modification habit
-    const PureObject3D* const obj = objmgr->createPlane(w, h, Pure_VMOD_DYNAMIC, Pure_VREF_INDEXED, true);
+    const PureObject3D* const obj = objmgr->createPlane(w, h, PURE_VMOD_DYNAMIC, PURE_VREF_INDEXED, true);
     return obj ? objmgr->getAttachedIndex(*obj) : -1;
 }
 
 GFXCORE2_API DELPHI_INTEGER __stdcall tmcsCreateCube(DELPHI_SINGLE a)
 {
     // to mimic legacy engine, by default we create object in CLIENT memory, for that we need to select DYNAMIC modification habit
-    const PureObject3D* const obj = objmgr->createCube(a, Pure_VMOD_DYNAMIC, Pure_VREF_INDEXED, true);
+    const PureObject3D* const obj = objmgr->createCube(a, PURE_VMOD_DYNAMIC, PURE_VREF_INDEXED, true);
     return obj ? objmgr->getAttachedIndex(*obj) : -1;
 }
 
 GFXCORE2_API DELPHI_INTEGER __stdcall tmcsCreateBox(DELPHI_SINGLE a, DELPHI_SINGLE b, DELPHI_SINGLE c)
 {
     // to mimic legacy engine, by default we create object in CLIENT memory, for that we need to select DYNAMIC modification habit
-    const PureObject3D* const obj = objmgr->createBox(a, b, c, Pure_VMOD_DYNAMIC, Pure_VREF_INDEXED, true);
+    const PureObject3D* const obj = objmgr->createBox(a, b, c, PURE_VMOD_DYNAMIC, PURE_VREF_INDEXED, true);
     return obj ? objmgr->getAttachedIndex(*obj) : -1;
 }
 
@@ -541,27 +541,27 @@ GFXCORE2_API DELPHI_INTEGER __stdcall tmcsCreateObjectFromFile(DELPHI_TSTR40 fna
     StrConvDelphiStrToCStr(fname, strTmpBuffer);
 
     // save current texmanager settings before setting external object texture settings
-    const TPure_ISO_TEX_FILTERING fTexIsoFilteringMin = texmgr->getDefaultMinFilteringMode();
-    const TPure_ISO_TEX_FILTERING fTexIsoFilteringMag = texmgr->getDefaultMagFilteringMode();
-    const TPure_TEX_COMPRESSION_MODE compTex = texmgr->getDefaultCompressionMode();
-    const TPurebool bBorder = texmgr->getDefaultBorder();
-    const TPure_TEX_WRAPPING twS = texmgr->getDefaultTextureWrappingModeS();
-    const TPure_TEX_WRAPPING twT = texmgr->getDefaultTextureWrappingModeT();
+    const TPURE_ISO_TEX_FILTERING fTexIsoFilteringMin = texmgr->getDefaultMinFilteringMode();
+    const TPURE_ISO_TEX_FILTERING fTexIsoFilteringMag = texmgr->getDefaultMagFilteringMode();
+    const TPURE_TEX_COMPRESSION_MODE compTex = texmgr->getDefaultCompressionMode();
+    const TPureBool bBorder = texmgr->getDefaultBorder();
+    const TPURE_TEX_WRAPPING twS = texmgr->getDefaultTextureWrappingModeS();
+    const TPURE_TEX_WRAPPING twT = texmgr->getDefaultTextureWrappingModeT();
 
     // load external object texture settings   
     // TODO: following few attribs still not supported by prre
     /*
         DELPHI_TGLCONST glExtEnvmode = GL_DECAL;
     */
-    TPure_ISO_TEX_FILTERING fNewTexIsoFilteringMin = bExtMipmapping ? (glExtFiltering == GL_LINEAR_MIPMAP_LINEAR ? Pure_ISO_LINEAR_MIPMAP_LINEAR : Pure_ISO_LINEAR_MIPMAP_NEAREST) : Pure_ISO_LINEAR;
+    TPURE_ISO_TEX_FILTERING fNewTexIsoFilteringMin = bExtMipmapping ? (glExtFiltering == GL_LINEAR_MIPMAP_LINEAR ? PURE_ISO_LINEAR_MIPMAP_LINEAR : PURE_ISO_LINEAR_MIPMAP_NEAREST) : PURE_ISO_LINEAR;
     texmgr->setDefaultMinFilteringMode( fNewTexIsoFilteringMin );
-    texmgr->setDefaultMagFilteringMode( Pure_ISO_LINEAR );
-    texmgr->setDefaultCompressionMode( bExtCompressed ? Pure_TC_AUTO : Pure_TC_NONE );
+    texmgr->setDefaultMagFilteringMode( PURE_ISO_LINEAR );
+    texmgr->setDefaultCompressionMode( bExtCompressed ? PURE_TC_AUTO : PURE_TC_NONE );
     texmgr->setDefaultBorder( bExtBorder );
     texmgr->setDefaultTextureWrappingMode( getPuretexWrappingFromGLtexWrapping(glExtWrapS), getPuretexWrappingFromGLtexWrapping(glExtWrapT) );
 
     // need to set dynamic vmod habit to make sure bForceClientMemory = true case takes effect
-    PureObject3D* const obj = objmgr->createFromFile((char*) strTmpBuffer, compiled ? Pure_VMOD_STATIC : Pure_VMOD_DYNAMIC, Pure_VREF_INDEXED, !compiled);
+    PureObject3D* const obj = objmgr->createFromFile((char*) strTmpBuffer, compiled ? PURE_VMOD_STATIC : PURE_VMOD_DYNAMIC, PURE_VREF_INDEXED, !compiled);
     if ( obj )
     {
         // need to flip along X axis because I noticed that with new engine the objects appear mirrored along X-axis compared to how they appear in old proofps engine
@@ -613,7 +613,7 @@ GFXCORE2_API void __stdcall tmcsMultiTexAssignObject(DELPHI_WORD index1, DELPHI_
     if ( obj1->getCount() != obj2->getCount() )
         return;
 
-    for (TPureuint i = 0; i < obj1->getCount(); i++)
+    for (TPureUInt i = 0; i < obj1->getCount(); i++)
     {
         PureObject3D* const obj1Sub = (PureObject3D*) obj1->getAttachedAt(i);
         // assuming that obj2 has the same subobject- and vertex count as obj1
@@ -641,7 +641,7 @@ GFXCORE2_API void __stdcall tmcsMultiTexAssignObject(DELPHI_WORD index1, DELPHI_
     // So after all here we have a chance to set blending funcs of the object back to default, since the blending funcs controlling how layer 2 
     // should be blended over layer 1 is already stored in subobject's material attribs in above loop. That will work fine even if we reset parent's
     // blending funcs.
-    obj1->getMaterial(false).setBlendFuncs( Pure_ONE, Pure_ZERO );
+    obj1->getMaterial(false).setBlendFuncs( PURE_ONE, PURE_ZERO );
 
     // At this point, we should be safe to delete obj2 since object's dtor calls material's dtor which doesn't free up the textures.
     // However, a mechanism is needed to be implemented to correctly handle this situation.
@@ -711,7 +711,7 @@ GFXCORE2_API void __stdcall tmcsCompileObject(DELPHI_WORD index)
 {
     PureObject3D* const obj = (PureObject3D*) objmgr->getAttachedAt(index);
     if ( obj )
-        obj->setVertexTransferMode( PureVertexTransfer::selectVertexTransferMode(Pure_VMOD_STATIC, Pure_VREF_INDEXED, false) );
+        obj->setVertexTransferMode( PureVertexTransfer::selectVertexTransferMode(PURE_VMOD_STATIC, PURE_VREF_INDEXED, false) );
 }
 
 GFXCORE2_API void __stdcall tmcsShowObject(DELPHI_WORD index)
@@ -760,7 +760,7 @@ GFXCORE2_API void __stdcall tmcsSetObjectZBuffered(DELPHI_WORD index, DELPHI_BOO
 GFXCORE2_API void __stdcall tmcsSetWiredCulling(DELPHI_BOOLEAN state)
 {
     // this is a global setting in PR00FPS-engine, so apply it to all objects now
-    for (TPureuint i = 0; i < objmgr->getSize(); i++)
+    for (TPureUInt i = 0; i < objmgr->getSize(); i++)
     {
         PureObject3D* const obj = (PureObject3D*) objmgr->getAttachedAt(i);
         if ( obj != PGENULL )
@@ -959,14 +959,14 @@ GFXCORE2_API void __stdcall tmcsSetObjectRotationXZY(DELPHI_WORD num)
 {
     PureObject3D* const obj = (PureObject3D*) objmgr->getAttachedAt(num);
     if ( obj )
-        obj->SetRotationOrder(Pure_XZY);
+        obj->SetRotationOrder(PURE_XZY);
 }
 
 GFXCORE2_API void __stdcall tmcsSetObjectRotationYXZ(DELPHI_WORD num)
 {
     PureObject3D* const obj = (PureObject3D*) objmgr->getAttachedAt(num);
     if ( obj )
-        obj->SetRotationOrder(/*Pure_YXZ proofps old*/Pure_YZX);
+        obj->SetRotationOrder(/*PURE_YXZ proofps old*/PURE_YZX);
 }
 
 GFXCORE2_API void __stdcall tmcsSetName(DELPHI_WORD num, const DELPHI_TSTR40 name)
@@ -996,13 +996,13 @@ GFXCORE2_API void __stdcall tmcsSetObjectColor(DELPHI_WORD num, DELPHI_BYTE r, D
     // currently new engine doesn't support vertex colors, so let's just set texture env color
     obj->getMaterial(false).getTextureEnvColor().Set(r, g, b, obj->getMaterial(false).getTextureEnvColor().getAlpha());
 
-    for (TPureuint i = 0; i < obj->getCount(); i++)
+    for (TPureUInt i = 0; i < obj->getCount(); i++)
     {
         PureObject3D* const subobj = (PureObject3D*) obj->getAttachedAt(i);
         if ( subobj )
         {
             PureMaterial& const mat = subobj->getMaterial(false);
-            for (TPureuint j = 0; j < mat.getColorsCount(); j++)
+            for (TPureUInt j = 0; j < mat.getColorsCount(); j++)
             {
                 mat.getColors()[j].red = r;
                 mat.getColors()[j].green = g;
@@ -1045,13 +1045,13 @@ GFXCORE2_API void __stdcall tmcsSetObjectAlpha(DELPHI_WORD num, DELPHI_BYTE a)
     if ( !obj )
         return;
 
-    for (TPureuint i = 0; i < obj->getCount(); i++)
+    for (TPureUInt i = 0; i < obj->getCount(); i++)
     {
         PureObject3D* const subobj = (PureObject3D*) obj->getAttachedAt(i);
         if ( subobj )
         {
             PureMaterial& const mat = subobj->getMaterial(false);
-            for (TPureuint j = 0; j < mat.getColorsCount(); j++)
+            for (TPureUInt j = 0; j < mat.getColorsCount(); j++)
                 mat.getColors()[j].alpha = a;
         }
     }
@@ -1078,7 +1078,7 @@ GFXCORE2_API void __stdcall tmcsSetObjectBlending(DELPHI_WORD num, DELPHI_BOOLEA
     // so here if state is FALSE then I set non-blending blendmodes.
     PureObject3D* const obj = (PureObject3D*) objmgr->getAttachedAt(num);
     if ( obj && !state )
-        obj->getMaterial(false).setBlendFuncs(Pure_ONE, Pure_ZERO);
+        obj->getMaterial(false).setBlendFuncs(PURE_ONE, PURE_ZERO);
 
     return;
 }
@@ -1279,73 +1279,73 @@ GFXCORE2_API DELPHI_INTEGER __stdcall tmcsCreateTextureFromFile(DELPHI_TFILENAME
 
 
     // save current texmanager settings before setting external object texture settings
-    const TPure_ISO_TEX_FILTERING fTexIsoFilteringMin = texmgr->getDefaultMinFilteringMode();
-    const TPure_ISO_TEX_FILTERING fTexIsoFilteringMag = texmgr->getDefaultMagFilteringMode();
-    const TPure_TEX_COMPRESSION_MODE compTex = texmgr->getDefaultCompressionMode();
-    const TPurebool bBorder = texmgr->getDefaultBorder();
-    const TPure_TEX_WRAPPING twS = texmgr->getDefaultTextureWrappingModeS();
-    const TPure_TEX_WRAPPING twT = texmgr->getDefaultTextureWrappingModeT();
+    const TPURE_ISO_TEX_FILTERING fTexIsoFilteringMin = texmgr->getDefaultMinFilteringMode();
+    const TPURE_ISO_TEX_FILTERING fTexIsoFilteringMag = texmgr->getDefaultMagFilteringMode();
+    const TPURE_TEX_COMPRESSION_MODE compTex = texmgr->getDefaultCompressionMode();
+    const TPureBool bBorder = texmgr->getDefaultBorder();
+    const TPURE_TEX_WRAPPING twS = texmgr->getDefaultTextureWrappingModeS();
+    const TPURE_TEX_WRAPPING twT = texmgr->getDefaultTextureWrappingModeT();
 
-    const TPure_ISO_TEX_FILTERING finalMagFiltering = Pure_ISO_LINEAR;
-          TPure_ISO_TEX_FILTERING finalMinFiltering;
+    const TPURE_ISO_TEX_FILTERING finalMagFiltering = PURE_ISO_LINEAR;
+          TPURE_ISO_TEX_FILTERING finalMinFiltering;
     
     switch (filtering)
     {
     case GL_NEAREST:
-        finalMinFiltering = Pure_ISO_NEAREST;  break;
+        finalMinFiltering = PURE_ISO_NEAREST;  break;
     case GL_LINEAR :
-        finalMinFiltering = Pure_ISO_LINEAR;  break;
+        finalMinFiltering = PURE_ISO_LINEAR;  break;
     case GL_LINEAR_MIPMAP_NEAREST:
-        finalMinFiltering = Pure_ISO_LINEAR_MIPMAP_NEAREST;  break;
+        finalMinFiltering = PURE_ISO_LINEAR_MIPMAP_NEAREST;  break;
     case GL_LINEAR_MIPMAP_LINEAR:
-        finalMinFiltering = Pure_ISO_LINEAR_MIPMAP_LINEAR;  break;
+        finalMinFiltering = PURE_ISO_LINEAR_MIPMAP_LINEAR;  break;
     case GL_NEAREST_MIPMAP_NEAREST:
-        finalMinFiltering = Pure_ISO_NEAREST_MIPMAP_NEAREST;  break;
+        finalMinFiltering = PURE_ISO_NEAREST_MIPMAP_NEAREST;  break;
     case GL_NEAREST_MIPMAP_LINEAR:
-        finalMinFiltering = Pure_ISO_NEAREST_MIPMAP_LINEAR;  break;
+        finalMinFiltering = PURE_ISO_NEAREST_MIPMAP_LINEAR;  break;
     default:
-        finalMinFiltering = Pure_ISO_LINEAR;
+        finalMinFiltering = PURE_ISO_LINEAR;
         CConsole::getConsoleInstance().EOLn("tmcsCreateTextureFromFile() filtering branched to default!");
     }
 
-    TPure_TEX_WRAPPING finalTW_S, finalTW_T;
+    TPURE_TEX_WRAPPING finalTW_S, finalTW_T;
 
     switch (wrap_s)
     {
     case GL_CLAMP:
-        finalTW_S = Pure_TW_CLAMP;  break;
+        finalTW_S = PURE_TW_CLAMP;  break;
     case GL_REPEAT:
-        finalTW_S = Pure_TW_REPEAT;  break;
+        finalTW_S = PURE_TW_REPEAT;  break;
     case GL_MIRRORED_REPEAT:
-        finalTW_S = Pure_TW_MIRRORED_REPEAT;  break;
+        finalTW_S = PURE_TW_MIRRORED_REPEAT;  break;
     case GL_CLAMP_TO_BORDER:
-        finalTW_S = Pure_TW_CLAMP_TO_BORDER;  break;
+        finalTW_S = PURE_TW_CLAMP_TO_BORDER;  break;
     case GL_CLAMP_TO_EDGE:
-        finalTW_S = Pure_TW_CLAMP_TO_EDGE;  break;
+        finalTW_S = PURE_TW_CLAMP_TO_EDGE;  break;
     default:
-        finalTW_S = Pure_TW_REPEAT;
+        finalTW_S = PURE_TW_REPEAT;
         CConsole::getConsoleInstance().EOLn("tmcsCreateTextureFromFile() wrapping S branched to default!");
     }
 
     switch (wrap_t)
     {
     case GL_CLAMP:
-        finalTW_T = Pure_TW_CLAMP;  break;
+        finalTW_T = PURE_TW_CLAMP;  break;
     case GL_REPEAT:
-        finalTW_T = Pure_TW_REPEAT;  break;
+        finalTW_T = PURE_TW_REPEAT;  break;
     case GL_MIRRORED_REPEAT:
-        finalTW_T = Pure_TW_MIRRORED_REPEAT;  break;
+        finalTW_T = PURE_TW_MIRRORED_REPEAT;  break;
     case GL_CLAMP_TO_BORDER:
-        finalTW_T = Pure_TW_CLAMP_TO_BORDER;  break;
+        finalTW_T = PURE_TW_CLAMP_TO_BORDER;  break;
     case GL_CLAMP_TO_EDGE:
-        finalTW_T = Pure_TW_CLAMP_TO_EDGE;  break;
+        finalTW_T = PURE_TW_CLAMP_TO_EDGE;  break;
     default:
-        finalTW_T = Pure_TW_REPEAT;
+        finalTW_T = PURE_TW_REPEAT;
         CConsole::getConsoleInstance().EOLn("tmcsCreateTextureFromFile() wrapping T branched to default!");
     }
     
     texmgr->setDefaultIsoFilteringMode(finalMinFiltering, finalMagFiltering);
-    texmgr->setDefaultCompressionMode(compressed ? Pure_TC_AUTO : Pure_TC_NONE);
+    texmgr->setDefaultCompressionMode(compressed ? PURE_TC_AUTO : PURE_TC_NONE);
     texmgr->setDefaultTextureWrappingMode(finalTW_S, finalTW_T);
     texmgr->setDefaultBorder(border);
 
@@ -1382,66 +1382,66 @@ GFXCORE2_API DELPHI_INTEGER __stdcall tmcsCreateBlankTexture(DELPHI_INTEGER widt
 
 
     // save current texmanager settings before setting external object texture settings
-    const TPure_ISO_TEX_FILTERING fTexIsoFilteringMin = texmgr->getDefaultMinFilteringMode();
-    const TPure_ISO_TEX_FILTERING fTexIsoFilteringMag = texmgr->getDefaultMagFilteringMode();
-    const TPure_TEX_WRAPPING twS = texmgr->getDefaultTextureWrappingModeS();
-    const TPure_TEX_WRAPPING twT = texmgr->getDefaultTextureWrappingModeT();
+    const TPURE_ISO_TEX_FILTERING fTexIsoFilteringMin = texmgr->getDefaultMinFilteringMode();
+    const TPURE_ISO_TEX_FILTERING fTexIsoFilteringMag = texmgr->getDefaultMagFilteringMode();
+    const TPURE_TEX_WRAPPING twS = texmgr->getDefaultTextureWrappingModeS();
+    const TPURE_TEX_WRAPPING twT = texmgr->getDefaultTextureWrappingModeT();
 
-    const TPure_ISO_TEX_FILTERING finalMagFiltering = Pure_ISO_LINEAR;
-          TPure_ISO_TEX_FILTERING finalMinFiltering;
+    const TPURE_ISO_TEX_FILTERING finalMagFiltering = PURE_ISO_LINEAR;
+          TPURE_ISO_TEX_FILTERING finalMinFiltering;
     
     switch (filtering)
     {
     case GL_NEAREST:
-        finalMinFiltering = Pure_ISO_NEAREST;  break;
+        finalMinFiltering = PURE_ISO_NEAREST;  break;
     case GL_LINEAR :
-        finalMinFiltering = Pure_ISO_LINEAR;  break;
+        finalMinFiltering = PURE_ISO_LINEAR;  break;
     case GL_LINEAR_MIPMAP_NEAREST:
-        finalMinFiltering = Pure_ISO_LINEAR_MIPMAP_NEAREST;  break;
+        finalMinFiltering = PURE_ISO_LINEAR_MIPMAP_NEAREST;  break;
     case GL_LINEAR_MIPMAP_LINEAR:
-        finalMinFiltering = Pure_ISO_LINEAR_MIPMAP_LINEAR;  break;
+        finalMinFiltering = PURE_ISO_LINEAR_MIPMAP_LINEAR;  break;
     case GL_NEAREST_MIPMAP_NEAREST:
-        finalMinFiltering = Pure_ISO_NEAREST_MIPMAP_NEAREST;  break;
+        finalMinFiltering = PURE_ISO_NEAREST_MIPMAP_NEAREST;  break;
     case GL_NEAREST_MIPMAP_LINEAR:
-        finalMinFiltering = Pure_ISO_NEAREST_MIPMAP_LINEAR;  break;
+        finalMinFiltering = PURE_ISO_NEAREST_MIPMAP_LINEAR;  break;
     default:
-        finalMinFiltering = Pure_ISO_LINEAR;
+        finalMinFiltering = PURE_ISO_LINEAR;
         CConsole::getConsoleInstance().EOLn("tmcsCreateBlankTexture() filtering branched to default!");
     }
 
-    TPure_TEX_WRAPPING finalTW_S, finalTW_T;
+    TPURE_TEX_WRAPPING finalTW_S, finalTW_T;
 
     switch (wrap_s)
     {
     case GL_CLAMP:
-        finalTW_S = Pure_TW_CLAMP;  break;
+        finalTW_S = PURE_TW_CLAMP;  break;
     case GL_REPEAT:
-        finalTW_S = Pure_TW_REPEAT;  break;
+        finalTW_S = PURE_TW_REPEAT;  break;
     case GL_MIRRORED_REPEAT:
-        finalTW_S = Pure_TW_MIRRORED_REPEAT;  break;
+        finalTW_S = PURE_TW_MIRRORED_REPEAT;  break;
     case GL_CLAMP_TO_BORDER:
-        finalTW_S = Pure_TW_CLAMP_TO_BORDER;  break;
+        finalTW_S = PURE_TW_CLAMP_TO_BORDER;  break;
     case GL_CLAMP_TO_EDGE:
-        finalTW_S = Pure_TW_CLAMP_TO_EDGE;  break;
+        finalTW_S = PURE_TW_CLAMP_TO_EDGE;  break;
     default:
-        finalTW_S = Pure_TW_REPEAT;
+        finalTW_S = PURE_TW_REPEAT;
         CConsole::getConsoleInstance().EOLn("tmcsCreateBlankTexture() wrapping S branched to default!");
     }
 
     switch (wrap_t)
     {
     case GL_CLAMP:
-        finalTW_T = Pure_TW_CLAMP;  break;
+        finalTW_T = PURE_TW_CLAMP;  break;
     case GL_REPEAT:
-        finalTW_T = Pure_TW_REPEAT;  break;
+        finalTW_T = PURE_TW_REPEAT;  break;
     case GL_MIRRORED_REPEAT:
-        finalTW_T = Pure_TW_MIRRORED_REPEAT;  break;
+        finalTW_T = PURE_TW_MIRRORED_REPEAT;  break;
     case GL_CLAMP_TO_BORDER:
-        finalTW_T = Pure_TW_CLAMP_TO_BORDER;  break;
+        finalTW_T = PURE_TW_CLAMP_TO_BORDER;  break;
     case GL_CLAMP_TO_EDGE:
-        finalTW_T = Pure_TW_CLAMP_TO_EDGE;  break;
+        finalTW_T = PURE_TW_CLAMP_TO_EDGE;  break;
     default:
-        finalTW_T = Pure_TW_REPEAT;
+        finalTW_T = PURE_TW_REPEAT;
         CConsole::getConsoleInstance().EOLn("tmcsCreateBlankTexture() wrapping T branched to default!");
     }
 
@@ -1567,13 +1567,13 @@ GFXCORE2_API void  __stdcall tmcsMultiplyUVCoords(DELPHI_WORD num, DELPHI_SINGLE
     if ( !obj )
         return;
 
-    for (TPureuint i = 0; i < obj->getCount(); i++)
+    for (TPureUInt i = 0; i < obj->getCount(); i++)
     {
         PureObject3D* const subobj = (PureObject3D*) obj->getAttachedAt(i);
         if ( subobj )
         {
             PureMaterial& const mat = subobj->getMaterial(false);
-            for (TPureuint j = 0; j < mat.getTexcoordsCount(); j++)
+            for (TPureUInt j = 0; j < mat.getTexcoordsCount(); j++)
             {
                 mat.getTexcoords()[j].u *= factorw;
                 mat.getTexcoords()[j].v *= factorh;
@@ -1588,13 +1588,13 @@ GFXCORE2_API void  __stdcall tmcsAdjustUVCoords(DELPHI_WORD num, DELPHI_SINGLE f
     if ( !obj )
         return;
 
-    for (TPureuint i = 0; i < obj->getCount(); i++)
+    for (TPureUInt i = 0; i < obj->getCount(); i++)
     {
         PureObject3D* const subobj = (PureObject3D*) obj->getAttachedAt(i);
         if ( subobj )
         {
             PureMaterial& const mat = subobj->getMaterial(false);
-            for (TPureuint j = 0; j < mat.getTexcoordsCount(); j++)
+            for (TPureUInt j = 0; j < mat.getTexcoordsCount(); j++)
             {
                 if ( mat.getTexcoords()[j].u == 0.0f )
                     mat.getTexcoords()[j].u += factor;
@@ -1642,18 +1642,18 @@ GFXCORE2_API void  __stdcall tmcsAdjustPlaneCoordsToViewport(DELPHI_WORD num, DE
     // Remember, originally the aim of this legacy function must had been to properly set vertex- and texture coordinates
     // of object referenced by num BASED ON THE ATTRIBUTES of texture referenced by num2 !
 
-    obj->getMaterial().getTexcoords()[1].u = prre->getCamera().getViewport().size.width / (TPurefloat) texLastCreateBlank->getWidth();  /* U = 1024.0f / 1024 = 1.0f */
+    obj->getMaterial().getTexcoords()[1].u = prre->getCamera().getViewport().size.width / (TPureFloat) texLastCreateBlank->getWidth();  /* U = 1024.0f / 1024 = 1.0f */
     obj->getMaterial().getTexcoords()[1].v = 0.0f;                                                                                      /* V =                  0.0f */
     obj->getVertices()[1].x =  prre->getCamera().getViewport().size.width / 2.0f;                                                       /* X = 1024.0f / 2.0f =  512.0f */
     obj->getVertices()[1].y = -prre->getCamera().getViewport().size.height / 2.0f;                                                      /* Y = -768.0f / 2.0f = -384.0f */
 
-    obj->getMaterial().getTexcoords()[2].u = prre->getCamera().getViewport().size.width / (TPurefloat) texLastCreateBlank->getWidth();   /* U = 1024.0f / 1024 = 1.0f */
-    obj->getMaterial().getTexcoords()[2].v = prre->getCamera().getViewport().size.height / (TPurefloat) texLastCreateBlank->getWidth();  /* V =  768.0f / 1024 = 0.75f */
+    obj->getMaterial().getTexcoords()[2].u = prre->getCamera().getViewport().size.width / (TPureFloat) texLastCreateBlank->getWidth();   /* U = 1024.0f / 1024 = 1.0f */
+    obj->getMaterial().getTexcoords()[2].v = prre->getCamera().getViewport().size.height / (TPureFloat) texLastCreateBlank->getWidth();  /* V =  768.0f / 1024 = 0.75f */
     obj->getVertices()[2].x = prre->getCamera().getViewport().size.width / 2.0f;                                                         /* X = 1024.0f / 2.0f = 512.0f */
     obj->getVertices()[2].y = prre->getCamera().getViewport().size.height / 2.0f;                                                        /* Y =  768.0f / 2.0f = 384.0f */
 
     obj->getMaterial().getTexcoords()[3].u = 0.0f;                                                                                       /* U =                  0.0f */
-    obj->getMaterial().getTexcoords()[3].v = prre->getCamera().getViewport().size.height / (TPurefloat) texLastCreateBlank->getWidth();  /* V =  768.0f / 1024 = 0.75f */
+    obj->getMaterial().getTexcoords()[3].v = prre->getCamera().getViewport().size.height / (TPureFloat) texLastCreateBlank->getWidth();  /* V =  768.0f / 1024 = 0.75f */
     obj->getVertices()[3].x = -prre->getCamera().getViewport().size.width / 2.0f;                                                        /* X = -1024.0f / 2.0f = -512.0f */
     obj->getVertices()[3].y =  prre->getCamera().getViewport().size.height / 2.0f;                                                       /* Y =   768.0f / 2.0f =  384.0f */
 }
@@ -1755,7 +1755,7 @@ GFXCORE2_API DELPHI_INTEGER __stdcall tmcsGetTextWidth(DELPHI_TSTR255 text, DELP
 
     // create a temporary text just to retrieve the needed width ... no need to delete, uiManager will delete anyway after next frame;
     // dummy positions are given to make sure it is not visible within viewport
-    PureuiText* tmpText = prre->getUImanager().text(textStr, 0, -500, prre->getUImanager().getDefaultFontFace(), (int) (fontheight*(scaling/60.0f)), false, false, false, false);
+    PureUiText* tmpText = prre->getUImanager().text(textStr, 0, -500, prre->getUImanager().getDefaultFontFace(), (int) (fontheight*(scaling/60.0f)), false, false, false, false);
 
     if ( tmpText )
         return (DELPHI_INTEGER) tmpText->getWidth() - tmpText->getText().length()*2;  /* small correction for legacy projects which also contain some negative correction */
@@ -1781,8 +1781,8 @@ GFXCORE2_API void __stdcall tmcsSetRenderPath(DELPHI_WORD renderPath)
     }
     CConsole::getConsoleInstance().OLn("%s: %u: %s", __FUNCTION__, renderPath, sRenderPath.c_str());
 
-    TPure_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
-    BITF_SET(renderHints, renderPath, Pure_RH_RENDER_PATH_BITS, 3);
+    TPURE_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
+    BITF_SET(renderHints, renderPath, PURE_RH_RENDER_PATH_BITS, 3);
     CConsole::getConsoleInstance().OI();
     prre->getRenderer()->SetRenderHints(renderHints);
     CConsole::getConsoleInstance().OO();
@@ -1809,8 +1809,8 @@ GFXCORE2_API void __stdcall tmcsSetOcclusionCullingMethod(DELPHI_WORD ocMethod)
     }
     CConsole::getConsoleInstance().OLn("%s: %u: %s", __FUNCTION__, ocMethod, sOcMethod.c_str());
 
-    TPure_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
-    BITF_SET(renderHints, ocMethod, Pure_RH_OQ_METHOD_BITS, 2);
+    TPURE_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
+    BITF_SET(renderHints, ocMethod, PURE_RH_OQ_METHOD_BITS, 2);
     CConsole::getConsoleInstance().OI();
     prre->getRenderer()->SetRenderHints(renderHints);
     CConsole::getConsoleInstance().OO();
@@ -1830,8 +1830,8 @@ GFXCORE2_API void __stdcall tmcsSetOcclusionCullingBoundingBoxes(DELPHI_BOOLEAN 
 
     CConsole::getConsoleInstance().OLn("%s: %b", __FUNCTION__, state);
 
-    TPure_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
-    BITF_SET(renderHints, state, Pure_RH_OQ_DRAW_BOUNDING_BOXES_BIT, 1);
+    TPURE_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
+    BITF_SET(renderHints, state, PURE_RH_OQ_DRAW_BOUNDING_BOXES_BIT, 1);
     CConsole::getConsoleInstance().OI();
     prre->getRenderer()->SetRenderHints(renderHints);
     CConsole::getConsoleInstance().OO();
@@ -1851,8 +1851,8 @@ GFXCORE2_API void __stdcall tmcsSetOcclusionCullingDrawIfPending(DELPHI_BOOLEAN 
 
     CConsole::getConsoleInstance().OLn("%s: %b", __FUNCTION__, state);
 
-    TPure_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
-    BITF_SET(renderHints, state, Pure_RH_OQ_DRAW_IF_QUERY_PENDING_BIT, 1);
+    TPURE_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
+    BITF_SET(renderHints, state, PURE_RH_OQ_DRAW_IF_QUERY_PENDING_BIT, 1);
     CConsole::getConsoleInstance().OI();
     prre->getRenderer()->SetRenderHints(renderHints);
     CConsole::getConsoleInstance().OO();
@@ -1872,8 +1872,8 @@ GFXCORE2_API void __stdcall tmcsSetOrderingByDistance(DELPHI_BOOLEAN state)
 
     CConsole::getConsoleInstance().OLn("%s: %b", __FUNCTION__, state);
 
-    TPure_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
-    BITF_SET(renderHints, state, Pure_RH_ORDERING_BY_DISTANCE_BIT, 1);
+    TPURE_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
+    BITF_SET(renderHints, state, PURE_RH_ORDERING_BY_DISTANCE_BIT, 1);
     CConsole::getConsoleInstance().OI();
     prre->getRenderer()->SetRenderHints(renderHints);
     CConsole::getConsoleInstance().OO();

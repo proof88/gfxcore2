@@ -48,9 +48,6 @@
     <ClInclude Include="gfxcore2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\PR00FsReducedRenderingEngine.h">
-      <Filter>Header Files\PGE\PURE</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Display\PureScreen.h">
       <Filter>Header Files\PGE\PURE\Display</Filter>
     </ClInclude>
@@ -139,6 +136,9 @@
       <Filter>Header Files\PGE\PURE</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\PureUiManager.h">
+      <Filter>Header Files\PGE\PURE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\PR00FsReducedRenderingEngine.h">
       <Filter>Header Files\PGE\PURE</Filter>
     </ClInclude>
   </ItemGroup>

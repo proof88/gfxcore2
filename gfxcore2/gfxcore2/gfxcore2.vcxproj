@@ -341,7 +341,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\PGE\PGE\PRRE\include\external\PR00FsReducedRenderingEngine.h" />
     <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Display\PureScreen.h" />
     <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Display\PureWindow.h" />
     <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Hardware\PureHwAudio.h" />
@@ -361,6 +360,7 @@
     <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Object3D\PureMesh3DManager.h" />
     <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Object3D\PureObject3DManager.h" />
     <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\Object3D\PureVertexTransferMode.h" />
+    <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\PR00FsReducedRenderingEngine.h" />
     <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\PureAllHeaders.h" />
     <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\PureCamera.h" />
     <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\PureFiledManager.h" />
