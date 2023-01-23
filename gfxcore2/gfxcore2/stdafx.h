@@ -29,7 +29,7 @@
 // TODO: reference additional headers your program requires here
 #include "../../../CConsole/CConsole/src/CConsole.h"
 #include "../../../PFL/PFL/PFL.h"
-#include "../../../PGE/PGE/Pure/include/external/PR00FsReducedRenderingEngine.h"
+#include "../../../PGE/PGE/Pure/include/external/PR00FsUltimateRenderingEngine.h"
 #include "../../../PGE/PGE/Pure/include/external/Render/PureRendererHWfixedPipe.h"
 #include "../../../PGE/PGE/Pure/include/external/Math/PureVector.h"
 #include "../../../PGE/PGE/Pure/include/external/Math/PureMatrix.h"

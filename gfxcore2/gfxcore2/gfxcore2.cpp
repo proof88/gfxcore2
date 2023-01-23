@@ -21,7 +21,7 @@
 
 std::vector<std::string> vReturnedStrings;
 
-PR00FsReducedRenderingEngine* prre = NULL;
+PR00FsUltimateRenderingEngine* pure = NULL;
 PureImageManager*    imgmgr = NULL;
 PureTextureManager*  texmgr = NULL;
 PureObject3DManager* objmgr = NULL;
@@ -135,7 +135,7 @@ TPURE_TEX_WRAPPING getPuretexWrappingFromGLtexWrapping(GLenum glw)
 
 GFXCORE2_API DELPHI_BOOLEAN __stdcall tmcsInitialized()
 {
-    return prre->isInitialized();
+    return pure->isInitialized();
 }
 
 
@@ -144,7 +144,7 @@ GFXCORE2_API DELPHI_BOOLEAN __stdcall tmcsInitialized()
 */
 GFXCORE2_API DELPHI_BYTE __stdcall tmcsInitGraphix(HWND wnd, DELPHI_BOOLEAN fs, DELPHI_INTEGER freq, DELPHI_INTEGER cdepth, DELPHI_INTEGER zdepth, DELPHI_BOOLEAN vsyncstate, DELPHI_INTEGER shading)
 {
-    prre = &PR00FsReducedRenderingEngine::createAndGet();
+    pure = &PR00FsUltimateRenderingEngine::createAndGet();
 
     /* HACK: since shading is practically used for nothing, we indicate the renderer in this parameter now: GL_FLAT means SW renderer, other means HW renderer */
     TPURE_RENDERER renderer = ( (shading == GL_FLAT) ? PURE_RENDERER_SW : PURE_RENDERER_HW_FP );
@@ -162,22 +162,22 @@ GFXCORE2_API DELPHI_BYTE __stdcall tmcsInitGraphix(HWND wnd, DELPHI_BOOLEAN fs, 
         height = (TPureUInt) rect.bottom - rect.top;
     }
 
-    DELPHI_BYTE nRetVal = (DELPHI_BYTE) prre->initialize(renderer, width, height, fs ? PURE_FULLSCREEN : PURE_WINDOWED, freq, cdepth, zdepth, 0, 0, wnd);
+    DELPHI_BYTE nRetVal = (DELPHI_BYTE) pure->initialize(renderer, width, height, fs ? PURE_FULLSCREEN : PURE_WINDOWED, freq, cdepth, zdepth, 0, 0, wnd);
 
     if ( nRetVal == 0 )
     {
-        prre->getScreen().SetVSyncEnabled( vsyncstate );
+        pure->getScreen().SetVSyncEnabled( vsyncstate );
 
-        PureWindow& window = prre->getWindow();
+        PureWindow& window = pure->getWindow();
         window.SetAutoCleanupOnQuitOn(false);
         window.SetCaption( "alma" );
         window.ShowFull();
         window.WriteSettings();
 
-        imgmgr = &prre->getImageManager();
-        texmgr = &prre->getTextureManager();
-        objmgr = &prre->getObject3DManager();
-        camera = &prre->getCamera();
+        imgmgr = &pure->getImageManager();
+        texmgr = &pure->getTextureManager();
+        objmgr = &pure->getObject3DManager();
+        camera = &pure->getCamera();
     }
 
     return nRetVal;
@@ -185,19 +185,19 @@ GFXCORE2_API DELPHI_BYTE __stdcall tmcsInitGraphix(HWND wnd, DELPHI_BOOLEAN fs, 
 
 GFXCORE2_API void __stdcall tmcsRender()
 {
-    prre->getRenderer()->RenderScene();
+    pure->getRenderer()->RenderScene();
 }
 
 GFXCORE2_API void __stdcall tmcsRestoreOriginalDisplayMode()
 {
     // apply the same display settings as were set originally BEFORE the initialization stage
     // example: user quits from the game, user ALT+TABs to another app, user minimizes game window, etc ...
-    prre->getScreen().ResetDisplaySettings();
+    pure->getScreen().ResetDisplaySettings();
 }
 
 GFXCORE2_API void __stdcall tmcsRestoreDisplayMode()
 {
-    // unimplemented in Pure: apply the same display settings as were applied at the initialization stage
+    // unimplemented in PURE: apply the same display settings as were applied at the initialization stage
     // example: when user reactivates the game window, fullscreen settings should be re-applied, like screen resolution
 }
 
@@ -213,7 +213,7 @@ GFXCORE2_API DELPHI_BYTE __stdcall tmcsShutdownGraphix()
     camera = NULL;
     texLastCreateBlank = NULL;
 
-    return prre->shutdown() ? 0 : 1;
+    return pure->shutdown() ? 0 : 1;
 }
 
 GFXCORE2_API void __stdcall tmcsEnableDebugging()
@@ -230,7 +230,7 @@ GFXCORE2_API void __stdcall tmcsEnableDebugging()
         CConsole::getConsoleInstance().SetFloatsColor( FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY, "FFFF00" );
         CConsole::getConsoleInstance().SetBoolsColor( FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY, "00FFFF" );
         #endif
-        PR00FsReducedRenderingEngine::createAndGet().SetAutoWriteStatsAtShutdown(true);
+        PR00FsUltimateRenderingEngine::createAndGet().SetAutoWriteStatsAtShutdown(true);
     }
 }
 
@@ -242,33 +242,33 @@ GFXCORE2_API void __stdcall tmcsDisableDebugging()
         #ifdef PGE_CCONSOLE_IS_ENABLED
         CConsole::getConsoleInstance().Deinitialize();
         #endif
-        PR00FsReducedRenderingEngine::createAndGet().SetAutoWriteStatsAtShutdown(false);
+        PR00FsUltimateRenderingEngine::createAndGet().SetAutoWriteStatsAtShutdown(false);
     }
 }
 
 GFXCORE2_API void __stdcall tmcsSetGamma(DELPHI_INTEGER r, DELPHI_INTEGER g, DELPHI_INTEGER b)
 {
-    // unimplemented in Pure
+    // unimplemented in PURE
 }
 
 GFXCORE2_API void  __stdcall tmcsEnableMotionBlur(DELPHI_WORD width, DELPHI_WORD height)
 {
-    // unimplemented in Pure
+    // unimplemented in PURE
 }
 
 GFXCORE2_API void  __stdcall tmcsDisableMotionBlur()
 {
-    // unimplemented in Pure
+    // unimplemented in PURE
 }
 
 GFXCORE2_API void  __stdcall tmcsFreeMotionBlurResources()
 {
-    // unimplemented in Pure
+    // unimplemented in PURE
 }
 
 GFXCORE2_API void  __stdcall tmcsSetMotionBlurUpdateRate(DELPHI_BYTE rate)
 {
-    // unimplemented in Pure
+    // unimplemented in PURE
     nMBlurUpdateRate = rate;
 }
 
@@ -430,7 +430,7 @@ GFXCORE2_API void __stdcall tmcsSetCameraAngleX(DELPHI_SINGLE anglex)
 {
     // for compatibility with legacy projects, we need to negate input angle X and angle Z, and subtract 180° from angle Y
     // and we store the input values so we can easily return them when a legacy project queries ...
-    // and also we need to limit angle x to (-90;+90)° exclusive otherwise prre engine lookat() may fail to properly set the view.
+    // and also we need to limit angle x to (-90;+90)° exclusive otherwise PURE engine lookat() may fail to properly set the view.
 
     if ( anglex > 89.9f )
         anglex = 89.9f;
@@ -549,7 +549,7 @@ GFXCORE2_API DELPHI_INTEGER __stdcall tmcsCreateObjectFromFile(DELPHI_TSTR40 fna
     const TPURE_TEX_WRAPPING twT = texmgr->getDefaultTextureWrappingModeT();
 
     // load external object texture settings   
-    // TODO: following few attribs still not supported by prre
+    // TODO: following few attribs still not supported by PURE
     /*
         DELPHI_TGLCONST glExtEnvmode = GL_DECAL;
     */
@@ -695,7 +695,7 @@ GFXCORE2_API void __stdcall tmcsDeleteObjects()
 
 GFXCORE2_API void __stdcall tmcsSetExtObjectsTextureMode(DELPHI_BOOLEAN mipmapping, DELPHI_TGLCONST filtering, DELPHI_TGLCONST envmode, DELPHI_BOOLEAN border, DELPHI_BOOLEAN compressed, DELPHI_TGLCONST wrap_s, DELPHI_TGLCONST wrap_t)
 {
-    // currently there is no capability in prre to set default texture mode for external loaded objects
+    // currently there is no capability in PURE to set default texture mode for external loaded objects
     // so we store the passed parameters in wrapper lib, and use them in tmcsCreateObjectFromFile()
 
     bExtMipmapping = mipmapping;
@@ -1247,27 +1247,27 @@ GFXCORE2_API void __stdcall tmcsSetSubName(DELPHI_WORD num1, DELPHI_WORD num2, D
 
 GFXCORE2_API void __stdcall tmcsEnableLights()
 {
-    // unimplemented in Pure
+    // unimplemented in PURE
 }
 
 GFXCORE2_API void __stdcall tmcsDisableLights()
 {
-    // unimplemented in Pure
+    // unimplemented in PURE
 }
 
 GFXCORE2_API void __stdcall tmcsEnableAmbientLight()
 {
-    // unimplemented in Pure
+    // unimplemented in PURE
 }
 
 GFXCORE2_API void __stdcall tmcsDisableAmbientLight()
 {
-    // unimplemented in Pure
+    // unimplemented in PURE
 }
 
 GFXCORE2_API void __stdcall tmcsSetAmbientLight(DELPHI_SINGLE r, DELPHI_SINGLE g, DELPHI_SINGLE b)
 {
-    // unimplemented in Pure
+    // unimplemented in PURE
 }
 
 
@@ -1371,7 +1371,7 @@ GFXCORE2_API void  __stdcall tmcsFrameBufferToTexture(DELPHI_INTEGER texnum)
     if ( !tex )
         return;
 
-    prre->CopyScreenToTexture(*tex);
+    pure->CopyScreenToTexture(*tex);
 }
 
 GFXCORE2_API DELPHI_INTEGER __stdcall tmcsCreateBlankTexture(DELPHI_INTEGER width, DELPHI_INTEGER height, DELPHI_TGLCONST filtering, DELPHI_TGLCONST envmode, DELPHI_TGLCONST wrap_s, DELPHI_TGLCONST wrap_t)
@@ -1632,8 +1632,8 @@ GFXCORE2_API void  __stdcall tmcsAdjustPlaneCoordsToViewport(DELPHI_WORD num, DE
     // And obj->getMaterial() will return the material of that only one subobject.
     obj->getMaterial().getTexcoords()[0].u = 0.0f;                                     /* U = 0.0f */
     obj->getMaterial().getTexcoords()[0].v = 0.0f;                                     /* V = 0.0f */
-    obj->getVertices()[0].x = -prre->getCamera().getViewport().size.width / 2.0f;      /* X = -1024.0f / 2.0f = -512.0f */
-    obj->getVertices()[0].y = -prre->getCamera().getViewport().size.height / 2.0f;     /* Y = - 768.0f / 2.0f = -384.0f */
+    obj->getVertices()[0].x = -pure->getCamera().getViewport().size.width / 2.0f;      /* X = -1024.0f / 2.0f = -512.0f */
+    obj->getVertices()[0].y = -pure->getCamera().getViewport().size.height / 2.0f;     /* Y = - 768.0f / 2.0f = -384.0f */
 
     // Another funny glitch: legacy tmcsgfxlib references texture^.width but doesn't even set
     // texture pointer in this function at all! That pointer has its value previously set by
@@ -1642,108 +1642,108 @@ GFXCORE2_API void  __stdcall tmcsAdjustPlaneCoordsToViewport(DELPHI_WORD num, DE
     // Remember, originally the aim of this legacy function must had been to properly set vertex- and texture coordinates
     // of object referenced by num BASED ON THE ATTRIBUTES of texture referenced by num2 !
 
-    obj->getMaterial().getTexcoords()[1].u = prre->getCamera().getViewport().size.width / (TPureFloat) texLastCreateBlank->getWidth();  /* U = 1024.0f / 1024 = 1.0f */
+    obj->getMaterial().getTexcoords()[1].u = pure->getCamera().getViewport().size.width / (TPureFloat) texLastCreateBlank->getWidth();  /* U = 1024.0f / 1024 = 1.0f */
     obj->getMaterial().getTexcoords()[1].v = 0.0f;                                                                                      /* V =                  0.0f */
-    obj->getVertices()[1].x =  prre->getCamera().getViewport().size.width / 2.0f;                                                       /* X = 1024.0f / 2.0f =  512.0f */
-    obj->getVertices()[1].y = -prre->getCamera().getViewport().size.height / 2.0f;                                                      /* Y = -768.0f / 2.0f = -384.0f */
+    obj->getVertices()[1].x =  pure->getCamera().getViewport().size.width / 2.0f;                                                       /* X = 1024.0f / 2.0f =  512.0f */
+    obj->getVertices()[1].y = -pure->getCamera().getViewport().size.height / 2.0f;                                                      /* Y = -768.0f / 2.0f = -384.0f */
 
-    obj->getMaterial().getTexcoords()[2].u = prre->getCamera().getViewport().size.width / (TPureFloat) texLastCreateBlank->getWidth();   /* U = 1024.0f / 1024 = 1.0f */
-    obj->getMaterial().getTexcoords()[2].v = prre->getCamera().getViewport().size.height / (TPureFloat) texLastCreateBlank->getWidth();  /* V =  768.0f / 1024 = 0.75f */
-    obj->getVertices()[2].x = prre->getCamera().getViewport().size.width / 2.0f;                                                         /* X = 1024.0f / 2.0f = 512.0f */
-    obj->getVertices()[2].y = prre->getCamera().getViewport().size.height / 2.0f;                                                        /* Y =  768.0f / 2.0f = 384.0f */
+    obj->getMaterial().getTexcoords()[2].u = pure->getCamera().getViewport().size.width / (TPureFloat) texLastCreateBlank->getWidth();   /* U = 1024.0f / 1024 = 1.0f */
+    obj->getMaterial().getTexcoords()[2].v = pure->getCamera().getViewport().size.height / (TPureFloat) texLastCreateBlank->getWidth();  /* V =  768.0f / 1024 = 0.75f */
+    obj->getVertices()[2].x = pure->getCamera().getViewport().size.width / 2.0f;                                                         /* X = 1024.0f / 2.0f = 512.0f */
+    obj->getVertices()[2].y = pure->getCamera().getViewport().size.height / 2.0f;                                                        /* Y =  768.0f / 2.0f = 384.0f */
 
     obj->getMaterial().getTexcoords()[3].u = 0.0f;                                                                                       /* U =                  0.0f */
-    obj->getMaterial().getTexcoords()[3].v = prre->getCamera().getViewport().size.height / (TPureFloat) texLastCreateBlank->getWidth();  /* V =  768.0f / 1024 = 0.75f */
-    obj->getVertices()[3].x = -prre->getCamera().getViewport().size.width / 2.0f;                                                        /* X = -1024.0f / 2.0f = -512.0f */
-    obj->getVertices()[3].y =  prre->getCamera().getViewport().size.height / 2.0f;                                                       /* Y =   768.0f / 2.0f =  384.0f */
+    obj->getMaterial().getTexcoords()[3].v = pure->getCamera().getViewport().size.height / (TPureFloat) texLastCreateBlank->getWidth();  /* V =  768.0f / 1024 = 0.75f */
+    obj->getVertices()[3].x = -pure->getCamera().getViewport().size.width / 2.0f;                                                        /* X = -1024.0f / 2.0f = -512.0f */
+    obj->getVertices()[3].y =  pure->getCamera().getViewport().size.height / 2.0f;                                                       /* Y =   768.0f / 2.0f =  384.0f */
 }
 
 
 GFXCORE2_API DELPHI_INTEGER __stdcall tmcsGetTotalVertices(DELPHI_WORD num)
 {
-    // TODO: unimplemented in Pure
+    // TODO: unimplemented in PURE
     return 0;
 }
 
 GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetVertexX(DELPHI_WORD num, DELPHI_WORD num2)
 {
-    // TODO: unimplemented in Pure
+    // TODO: unimplemented in PURE
     return 0.f;
 }
 
 GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetVertexY(DELPHI_WORD num, DELPHI_WORD num2)
 {
-    // TODO: unimplemented in Pure
+    // TODO: unimplemented in PURE
     return 0.f;
 }
 
 GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetVertexZ(DELPHI_WORD num, DELPHI_WORD num2)
 {
-    // TODO: unimplemented in Pure
+    // TODO: unimplemented in PURE
     return 0.f;
 }
 
 GFXCORE2_API void __stdcall tmcsSetVertex(DELPHI_WORD num, DELPHI_WORD num2, DELPHI_SINGLE x, DELPHI_SINGLE y, DELPHI_SINGLE z)
 {
-    // TODO: unimplemented in Pure
+    // TODO: unimplemented in PURE
 }
 
 GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetNormalX(DELPHI_WORD num, DELPHI_WORD num2)
 {
-    // TODO: unimplemented in Pure
+    // TODO: unimplemented in PURE
     return 0.f;
 }
 
 GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetNormalY(DELPHI_WORD num, DELPHI_WORD num2)
 {
-    // TODO: unimplemented in Pure
+    // TODO: unimplemented in PURE
     return 0.f;
 }
 
 GFXCORE2_API DELPHI_SINGLE __stdcall tmcsGetNormalZ(DELPHI_WORD num, DELPHI_WORD num2)
 {
-    // TODO: unimplemented in Pure
+    // TODO: unimplemented in PURE
     return 0.f;
 }
 
 GFXCORE2_API void __stdcall tmcsSetNormal(DELPHI_WORD num, DELPHI_WORD num2, DELPHI_SINGLE nx, DELPHI_SINGLE ny, DELPHI_SINGLE nz)
 {
-    // TODO: unimplemented in Pure
+    // TODO: unimplemented in PURE
 }
 
 
 GFXCORE2_API void __stdcall tmcsLoadFontInfo(DELPHI_TSTR255 path, DELPHI_TSTR255 name)
 {
-    // TODO: unimplemented in Pure
+    // TODO: unimplemented in PURE
 }
 
 GFXCORE2_API void __stdcall tmcsText(DELPHI_TSTR255 text, DELPHI_WORD x, DELPHI_WORD y, DELPHI_WORD fontheight, DELPHI_WORD scaling)
 {
     // as legacy proofps project may continuously call this function for items' text even when alpha is 0, 
     // check against current text alpha value and return immediately to avoid unnecessary resource eatup.
-    if ( prre->getUImanager().getDefaultColor().getAlphaAsFloat() < 0.1f )
+    if ( pure->getUImanager().getDefaultColor().getAlphaAsFloat() < 0.1f )
         return;
 
     DELPHI_TSTR255 strTmpBuffer;
     StrConvDelphiStrToCStr(text, strTmpBuffer);
     std::string textStr = (char*) strTmpBuffer;
 
-    prre->getUImanager().text(textStr, x, y, prre->getUImanager().getDefaultFontFace(), (int) (fontheight*(scaling/60.0f)), false, false, false, false);
+    pure->getUImanager().text(textStr, x, y, pure->getUImanager().getDefaultFontFace(), (int) (fontheight*(scaling/60.0f)), false, false, false, false);
 }
 
 GFXCORE2_API void __stdcall tmcsSetTextColor(DELPHI_BYTE r, DELPHI_BYTE g, DELPHI_BYTE b, DELPHI_BYTE a)
 {
-    prre->getUImanager().getDefaultColor().Set(r, g, b, a);
+    pure->getUImanager().getDefaultColor().Set(r, g, b, a);
 }
 
 GFXCORE2_API void __stdcall tmcsSetTextBlendingState(DELPHI_BOOLEAN state)
 {
-    // unimplemented in Pure: new engine doesn't yet support text blending; we will hide text having alpha < 0.1f by enabling alpha-testing
+    // unimplemented in PURE: new engine doesn't yet support text blending; we will hide text having alpha < 0.1f by enabling alpha-testing
 }
 
 GFXCORE2_API void __stdcall tmcsSetTextBlendMode(DELPHI_TGLCONST sfactor, DELPHI_TGLCONST dfactor)
 {
-    // unimplemented in Pure: new engine doesn't yet support text blending; we will hide text having alpha < 0.1f by enabling alpha-testing
+    // unimplemented in PURE: new engine doesn't yet support text blending; we will hide text having alpha < 0.1f by enabling alpha-testing
 }
 
 GFXCORE2_API DELPHI_INTEGER __stdcall tmcsGetTextWidth(DELPHI_TSTR255 text, DELPHI_WORD fontheight, DELPHI_WORD scaling)
@@ -1755,7 +1755,7 @@ GFXCORE2_API DELPHI_INTEGER __stdcall tmcsGetTextWidth(DELPHI_TSTR255 text, DELP
 
     // create a temporary text just to retrieve the needed width ... no need to delete, uiManager will delete anyway after next frame;
     // dummy positions are given to make sure it is not visible within viewport
-    PureUiText* tmpText = prre->getUImanager().text(textStr, 0, -500, prre->getUImanager().getDefaultFontFace(), (int) (fontheight*(scaling/60.0f)), false, false, false, false);
+    PureUiText* tmpText = pure->getUImanager().text(textStr, 0, -500, pure->getUImanager().getDefaultFontFace(), (int) (fontheight*(scaling/60.0f)), false, false, false, false);
 
     if ( tmpText )
         return (DELPHI_INTEGER) tmpText->getWidth() - tmpText->getText().length()*2;  /* small correction for legacy projects which also contain some negative correction */
@@ -1781,10 +1781,10 @@ GFXCORE2_API void __stdcall tmcsSetRenderPath(DELPHI_WORD renderPath)
     }
     CConsole::getConsoleInstance().OLn("%s: %u: %s", __FUNCTION__, renderPath, sRenderPath.c_str());
 
-    TPURE_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
+    TPURE_RENDER_HINT renderHints = pure->getRenderer()->getRenderHints();
     BITF_SET(renderHints, renderPath, PURE_RH_RENDER_PATH_BITS, 3);
     CConsole::getConsoleInstance().OI();
-    prre->getRenderer()->SetRenderHints(renderHints);
+    pure->getRenderer()->SetRenderHints(renderHints);
     CConsole::getConsoleInstance().OO();
 
     if ( bDebugEnabled )
@@ -1809,10 +1809,10 @@ GFXCORE2_API void __stdcall tmcsSetOcclusionCullingMethod(DELPHI_WORD ocMethod)
     }
     CConsole::getConsoleInstance().OLn("%s: %u: %s", __FUNCTION__, ocMethod, sOcMethod.c_str());
 
-    TPURE_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
+    TPURE_RENDER_HINT renderHints = pure->getRenderer()->getRenderHints();
     BITF_SET(renderHints, ocMethod, PURE_RH_OQ_METHOD_BITS, 2);
     CConsole::getConsoleInstance().OI();
-    prre->getRenderer()->SetRenderHints(renderHints);
+    pure->getRenderer()->SetRenderHints(renderHints);
     CConsole::getConsoleInstance().OO();
 
     if ( bDebugEnabled )
@@ -1830,10 +1830,10 @@ GFXCORE2_API void __stdcall tmcsSetOcclusionCullingBoundingBoxes(DELPHI_BOOLEAN 
 
     CConsole::getConsoleInstance().OLn("%s: %b", __FUNCTION__, state);
 
-    TPURE_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
+    TPURE_RENDER_HINT renderHints = pure->getRenderer()->getRenderHints();
     BITF_SET(renderHints, state, PURE_RH_OQ_DRAW_BOUNDING_BOXES_BIT, 1);
     CConsole::getConsoleInstance().OI();
-    prre->getRenderer()->SetRenderHints(renderHints);
+    pure->getRenderer()->SetRenderHints(renderHints);
     CConsole::getConsoleInstance().OO();
 
     if ( bDebugEnabled )
@@ -1851,10 +1851,10 @@ GFXCORE2_API void __stdcall tmcsSetOcclusionCullingDrawIfPending(DELPHI_BOOLEAN 
 
     CConsole::getConsoleInstance().OLn("%s: %b", __FUNCTION__, state);
 
-    TPURE_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
+    TPURE_RENDER_HINT renderHints = pure->getRenderer()->getRenderHints();
     BITF_SET(renderHints, state, PURE_RH_OQ_DRAW_IF_QUERY_PENDING_BIT, 1);
     CConsole::getConsoleInstance().OI();
-    prre->getRenderer()->SetRenderHints(renderHints);
+    pure->getRenderer()->SetRenderHints(renderHints);
     CConsole::getConsoleInstance().OO();
 
     if ( bDebugEnabled )
@@ -1872,10 +1872,10 @@ GFXCORE2_API void __stdcall tmcsSetOrderingByDistance(DELPHI_BOOLEAN state)
 
     CConsole::getConsoleInstance().OLn("%s: %b", __FUNCTION__, state);
 
-    TPURE_RENDER_HINT renderHints = prre->getRenderer()->getRenderHints();
+    TPURE_RENDER_HINT renderHints = pure->getRenderer()->getRenderHints();
     BITF_SET(renderHints, state, PURE_RH_ORDERING_BY_DISTANCE_BIT, 1);
     CConsole::getConsoleInstance().OI();
-    prre->getRenderer()->SetRenderHints(renderHints);
+    pure->getRenderer()->SetRenderHints(renderHints);
     CConsole::getConsoleInstance().OO();
 
     if ( bDebugEnabled )
@@ -1893,7 +1893,7 @@ GFXCORE2_API void __stdcall tmcsResetStatistics()
 
     CConsole::getConsoleInstance().OLn("%s", __FUNCTION__);
     CConsole::getConsoleInstance().OI();
-    prre->getRenderer()->ResetStatistics();
+    pure->getRenderer()->ResetStatistics();
     CConsole::getConsoleInstance().OO();
 
     if ( bDebugEnabled )
@@ -1909,7 +1909,7 @@ GFXCORE2_API void __stdcall tmcsEngineDump()
         CConsole::getConsoleInstance().SetLoggingState("4LLM0DUL3S", true);
     }
 
-    prre->WriteList();
+    pure->WriteList();
 
     if ( bDebugEnabled )
     {
