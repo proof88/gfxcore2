@@ -3,7 +3,7 @@
   gfxcore2.cpp
   Main source file of gfxcore2.
   This DLL is to be used by the legacy PR00FPS made in 2007.
-  This DLL is only a wrapper so the old PR00FPS can utilize my new engine: Pure.
+  This DLL is only a wrapper so the old PR00FPS can utilize my new engine: PURE.
   Aim is to avoid any modification to PR00FPS code, the change is totally transparent.
   Made by PR00F88
   EMAIL : PR0o0o0o0o0o0o0o0o0o0oF88@gmail.com
@@ -18,36 +18,36 @@
    ###########################################################################
 */
 
-std::vector<std::string> vReturnedStrings;
+static std::vector<std::string> vReturnedStrings;
 
-PGEcfgProfiles* cfgProfiles = NULL;
-PGEInputHandler* inputHandler = NULL;
+static PGEcfgProfiles* cfgProfiles = NULL;
+static PGEInputHandler* inputHandler = NULL;
 
-PR00FsUltimateRenderingEngine* pure = NULL;
-PureImageManager*    imgmgr = NULL;
-PureTextureManager*  texmgr = NULL;
-PureObject3DManager* objmgr = NULL;
-PureCamera* camera = NULL;
+static PR00FsUltimateRenderingEngine* pure = NULL;
+static PureImageManager*    imgmgr = NULL;
+static PureTextureManager*  texmgr = NULL;
+static PureObject3DManager* objmgr = NULL;
+static PureCamera* camera = NULL;
 
-PureTexture* texLastCreateBlank = NULL;
+static PureTexture* texLastCreateBlank = NULL;
 
-bool bDebugEnabled = false;
+static bool bDebugEnabled = false;
 
-DELPHI_BYTE   nMBlurUpdateRate = 0;
-DELPHI_TRGBA  clrMBlurColor;
-DELPHI_TRGBA  clrBgColor;
+static DELPHI_BYTE   nMBlurUpdateRate = 0;
+static DELPHI_TRGBA  clrMBlurColor;
+static DELPHI_TRGBA  clrBgColor;
 
-TPURE_XYZ     vLegacyCameraPos;    // we store camera pos XYZ values as set by caller legacy project and we also return this value, see details at related functions
-TPURE_XYZ     vLegacyCameraAngle;  // we store camera angle XYZ values as set by caller legacy project and we also return this value, see details at related functions
+static TPURE_XYZ     vLegacyCameraPos;    // we store camera pos XYZ values as set by caller legacy project and we also return this value, see details at related functions
+static TPURE_XYZ     vLegacyCameraAngle;  // we store camera angle XYZ values as set by caller legacy project and we also return this value, see details at related functions
 
 // default texture settings for external objects
-DELPHI_BOOLEAN  bExtMipmapping = true;
-DELPHI_TGLCONST glExtFiltering = GL_LINEAR_MIPMAP_LINEAR;
-DELPHI_TGLCONST glExtEnvmode = GL_DECAL;
-DELPHI_BOOLEAN  bExtBorder = false;
-DELPHI_BOOLEAN  bExtCompressed = true;
-DELPHI_TGLCONST glExtWrapS = GL_REPEAT;
-DELPHI_TGLCONST glExtWrapT = GL_REPEAT;
+static DELPHI_BOOLEAN  bExtMipmapping = true;
+static DELPHI_TGLCONST glExtFiltering = GL_LINEAR_MIPMAP_LINEAR;
+static DELPHI_TGLCONST glExtEnvmode = GL_DECAL;
+static DELPHI_BOOLEAN  bExtBorder = false;
+static DELPHI_BOOLEAN  bExtCompressed = true;
+static DELPHI_TGLCONST glExtWrapS = GL_REPEAT;
+static DELPHI_TGLCONST glExtWrapT = GL_REPEAT;
 
 /*
    Internal functions
@@ -57,7 +57,7 @@ DELPHI_TGLCONST glExtWrapT = GL_REPEAT;
 /**
     Converts a received Delphi-string to C-string.
 */
-void StrConvDelphiStrToCStr(const DELPHI_BYTE* sDelphiStr, DELPHI_TSTR40 sDestStr)
+static void StrConvDelphiStrToCStr(const DELPHI_BYTE* sDelphiStr, DELPHI_TSTR40 sDestStr)
 {
     // char #0 holds the actual length of the string, so we shift char array left by 1 char
     // then make sure that string is terminated with nullchar at correct position as stated by Delphi.
@@ -70,7 +70,7 @@ void StrConvDelphiStrToCStr(const DELPHI_BYTE* sDelphiStr, DELPHI_TSTR40 sDestSt
 /**
     Converts a C-String to a Delphi-string before passing it to Delphi.
 */
-void StrConvStrToDelphiStr(const std::string& sCStr, DELPHI_TSTR40_RET& sDestStr)
+static void StrConvStrToDelphiStr(const std::string& sCStr, DELPHI_TSTR40_RET& sDestStr)
 {
     // we have to shift the char array right by 1 char, so we can put string length into char #0
     strncpy((char*) sDestStr.str+1, sCStr.c_str(), sizeof(DELPHI_BYTE)*sCStr.length());
@@ -85,7 +85,7 @@ void StrConvStrToDelphiStr(const std::string& sCStr, DELPHI_TSTR40_RET& sDestStr
     @return The appropriate Pure blend factor for the given GL enum.
             PURE_ZERO for invalid GL enum.
 */
-TPURE_BLENDFACTOR getPureBlendFromGLBlend(GLenum glb)
+static TPURE_BLENDFACTOR getPureBlendFromGLBlend(GLenum glb)
 {
     switch( glb )
     {
@@ -109,7 +109,7 @@ TPURE_BLENDFACTOR getPureBlendFromGLBlend(GLenum glb)
     This is not yet implemented in Pure.
     HOPEFULLY LATER WE CAN INVOKE IT FROM MATERIALMANAGER.
 */
-TPURE_TEX_WRAPPING getPuretexWrappingFromGLtexWrapping(GLenum glw)
+static TPURE_TEX_WRAPPING getPuretexWrappingFromGLtexWrapping(GLenum glw)
 {
     switch (glw)
     {
