@@ -10,9 +10,8 @@
   ###################################################################################
 */
 
-#include "stdafx.h"
+#include "stdafx.h"  // PCH
 #include "gfxcore2.h"
-
 
 /*
    Internal variables
@@ -20,6 +19,9 @@
 */
 
 std::vector<std::string> vReturnedStrings;
+
+PGEcfgProfiles* cfgProfiles = NULL;
+PGEInputHandler* inputHandler = NULL;
 
 PR00FsUltimateRenderingEngine* pure = NULL;
 PureImageManager*    imgmgr = NULL;
@@ -46,9 +48,6 @@ DELPHI_BOOLEAN  bExtBorder = false;
 DELPHI_BOOLEAN  bExtCompressed = true;
 DELPHI_TGLCONST glExtWrapS = GL_REPEAT;
 DELPHI_TGLCONST glExtWrapT = GL_REPEAT;
-
-
-
 
 /*
    Internal functions
@@ -126,6 +125,21 @@ TPURE_TEX_WRAPPING getPuretexWrappingFromGLtexWrapping(GLenum glw)
 }
 
 
+static bool createPrerequisitePgeObjects()
+{
+    if (!cfgProfiles)
+    {
+        cfgProfiles = new PGEcfgProfiles("");
+        if (!cfgProfiles)
+        {
+            return false;
+        }
+    }
+    
+    inputHandler = &PGEInputHandler::createAndGet(*cfgProfiles);
+
+    return true;
+}
 
 
 /*
@@ -144,7 +158,12 @@ GFXCORE2_API DELPHI_BOOLEAN __stdcall tmcsInitialized()
 */
 GFXCORE2_API DELPHI_BYTE __stdcall tmcsInitGraphix(HWND wnd, DELPHI_BOOLEAN fs, DELPHI_INTEGER freq, DELPHI_INTEGER cdepth, DELPHI_INTEGER zdepth, DELPHI_BOOLEAN vsyncstate, DELPHI_INTEGER shading)
 {
-    pure = &PR00FsUltimateRenderingEngine::createAndGet();
+    if (!createPrerequisitePgeObjects())
+    {
+        return 1;
+    }
+
+    pure = &PR00FsUltimateRenderingEngine::createAndGet(*cfgProfiles, *inputHandler);
 
     /* HACK: since shading is practically used for nothing, we indicate the renderer in this parameter now: GL_FLAT means SW renderer, other means HW renderer */
     TPURE_RENDERER renderer = ( (shading == GL_FLAT) ? PURE_RENDERER_SW : PURE_RENDERER_HW_FP );
@@ -213,6 +232,9 @@ GFXCORE2_API DELPHI_BYTE __stdcall tmcsShutdownGraphix()
     camera = NULL;
     texLastCreateBlank = NULL;
 
+    // dont delete cfgProfiles because static inputHandler and other stuff may still use it during destruction,
+    // those should be also changed into NOT static into future to properly resolve this dependency.
+
     return pure->shutdown() ? 0 : 1;
 }
 
@@ -230,7 +252,12 @@ GFXCORE2_API void __stdcall tmcsEnableDebugging()
         CConsole::getConsoleInstance().SetFloatsColor( FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY, "FFFF00" );
         CConsole::getConsoleInstance().SetBoolsColor( FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY, "00FFFF" );
         #endif
-        PR00FsUltimateRenderingEngine::createAndGet().SetAutoWriteStatsAtShutdown(true);
+
+        if (!createPrerequisitePgeObjects())
+        {
+            return;
+        }
+        PR00FsUltimateRenderingEngine::createAndGet(*cfgProfiles, *inputHandler).SetAutoWriteStatsAtShutdown(true);
     }
 }
 
@@ -242,7 +269,12 @@ GFXCORE2_API void __stdcall tmcsDisableDebugging()
         #ifdef PGE_CCONSOLE_IS_ENABLED
         CConsole::getConsoleInstance().Deinitialize();
         #endif
-        PR00FsUltimateRenderingEngine::createAndGet().SetAutoWriteStatsAtShutdown(false);
+
+        if (!createPrerequisitePgeObjects())
+        {
+            return;
+        }
+        PR00FsUltimateRenderingEngine::createAndGet(*cfgProfiles, *inputHandler).SetAutoWriteStatsAtShutdown(false);
     }
 }
 
