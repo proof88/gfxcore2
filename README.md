@@ -7,11 +7,13 @@ This wrapper lib is sitting in between legacy PR00FPS and the new PURE graphics 
 
 **Requires**: I keep this lib up-to-date, so in theory, anytime you checkout the **latest PURE graphics library**, it can be used to compile this library without any modification into a .dll file, that can be placed into PR00FPS directory to run PR00FPS with.
 
-The source of the original tmcsgfxlib2 written in Delphi can be checked here:
-https://github.com/proof88/tmcsgfxlib2
-
 The source of the new PURE graphics library (part of PGE game engine) can be checked here:
 https://github.com/proof88/PGE
+
+To **build PGE and this gfxcore2 projects**, please follow the instructions in [PGE-WoW.txt](https://github.com/proof88/PGE-misc/blob/master/src/PGE-WoW.txt).
+
+The source of the original tmcsgfxlib2 written in Delphi can be checked here:
+https://github.com/proof88/tmcsgfxlib2
 
 And the source code of PR00FPS written in Delphi is here:
 https://github.com/proof88/PR00FPS
