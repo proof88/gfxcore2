@@ -7,8 +7,8 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPR00FPS|Win32'">
-    <LocalDebuggerCommand>$(OutDir)\..\..\..\Delphi\PR00FPS\PR00FPS\PR00FPS.exe</LocalDebuggerCommand>
-    <LocalDebuggerWorkingDirectory>d:\__PR00F__\___developing___\projects\Delphi\PR00FPS\PR00FPS\</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerCommand>$(OutDir)\..\..\..\PR00FPS\PR00FPS\PR00FPS.exe</LocalDebuggerCommand>
+    <LocalDebuggerWorkingDirectory>c:\__PR00F__\___developing___\projects\PR00FPS\PR00FPS\</LocalDebuggerWorkingDirectory>
     <LocalDebuggerAttach>false</LocalDebuggerAttach>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
@@ -24,9 +24,9 @@
     <LocalDebuggerWorkingDirectory>..\gfxcore2wrapper_test</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePR00FPS|Win32'">
-    <LocalDebuggerCommand>$(OutDir)\..\..\..\Delphi\PR00FPS\PR00FPS\PR00FPS.exe</LocalDebuggerCommand>
+    <LocalDebuggerCommand>$(OutDir)\..\..\..\PR00FPS\PR00FPS\PR00FPS.exe</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerWorkingDirectory>d:\__PR00F__\___developing___\projects\Delphi\PR00FPS\PR00FPS\</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory>c:\__PR00F__\___developing___\projects\PR00FPS\PR00FPS\</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EV2008P03Release|Win32'">
     <LocalDebuggerCommand>$(OutDir)\..\..\..\PGE\PGE\Samples\EV2008P03\P03.exe</LocalDebuggerCommand>

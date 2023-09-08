@@ -11,14 +11,17 @@
     ###################################################################################
 */
 
-#include "targetver.h"
-
-#define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
-// Windows Header Files:
-#include <windows.h>
-
 #include <string>
 #include <vector>
+
+#include "targetver.h"
+#ifndef WINPROOF88_ALLOW_CONTROLS_AND_DIALOGS
+#define WINPROOF88_ALLOW_CONTROLS_AND_DIALOGS
+#endif
+#ifndef WINPROOF88_ALLOW_MSG_USER_WINMESSAGES
+#define WINPROOF88_ALLOW_MSG_USER_WINMESSAGES
+#endif
+#include "../../../PFL/PFL/winproof88.h"
 
 // GL headers, never changed
 #include "../../../PGE/PGE/Pure/include/internal/gl/GL.h"
@@ -27,7 +30,7 @@
 #include "../../../PGE/PGE/Pure/include/internal/gl/wglext.h"
 
 // TODO: reference additional headers your program requires here
-#include "../../../CConsole/CConsole/src/CConsole.h"
+#include "../../../Console/CConsole/src/CConsole.h"
 #include "../../../PFL/PFL/PFL.h"
 #include "../../../PGE/PGE/Pure/include/external/PR00FsUltimateRenderingEngine.h"
 #include "../../../PGE/PGE/Pure/include/external/Render/PureRendererHWfixedPipe.h"
