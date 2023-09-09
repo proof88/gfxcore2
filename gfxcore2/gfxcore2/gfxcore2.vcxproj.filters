@@ -37,6 +37,9 @@
     <Filter Include="Header Files\PGE\PURE\Math">
       <UniqueIdentifier>{50fb4ea4-4c98-4fed-807a-6a282a85aaa8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\PFL">
+      <UniqueIdentifier>{eb56a08c-78f5-4065-92d8-b2f28adf77a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -140,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\PGE\PGE\PURE\include\external\PR00FsUltimateRenderingEngine.h">
       <Filter>Header Files\PGE\PURE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\PFL\PFL\winproof88.h">
+      <Filter>Header Files\PFL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
