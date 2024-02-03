@@ -1753,19 +1753,19 @@ GFXCORE2_API void __stdcall tmcsText(DELPHI_TSTR255 text, DELPHI_WORD x, DELPHI_
 {
     // as legacy proofps project may continuously call this function for items' text even when alpha is 0, 
     // check against current text alpha value and return immediately to avoid unnecessary resource eatup.
-    if ( pure->getUImanager().getDefaultColor().getAlphaAsFloat() < 0.1f )
+    if ( pure->getUImanager().getDefaultColorLegacy().getAlphaAsFloat() < 0.1f )
         return;
 
     DELPHI_TSTR255 strTmpBuffer;
     StrConvDelphiStrToCStr(text, strTmpBuffer);
     std::string textStr = (char*) strTmpBuffer;
 
-    pure->getUImanager().text(textStr, x, y, pure->getUImanager().getDefaultFontFace(), (int) (fontheight*(scaling/60.0f)), false, false, false, false);
+    pure->getUImanager().textTemporalLegacy(textStr, x, y, pure->getUImanager().getDefaultFontFaceLegacy(), (int) (fontheight*(scaling/60.0f)), false, false, false, false);
 }
 
 GFXCORE2_API void __stdcall tmcsSetTextColor(DELPHI_BYTE r, DELPHI_BYTE g, DELPHI_BYTE b, DELPHI_BYTE a)
 {
-    pure->getUImanager().getDefaultColor().Set(r, g, b, a);
+    pure->getUImanager().getDefaultColorLegacy().Set(r, g, b, a);
 }
 
 GFXCORE2_API void __stdcall tmcsSetTextBlendingState(DELPHI_BOOLEAN state)
@@ -1787,7 +1787,7 @@ GFXCORE2_API DELPHI_INTEGER __stdcall tmcsGetTextWidth(DELPHI_TSTR255 text, DELP
 
     // create a temporary text just to retrieve the needed width ... no need to delete, uiManager will delete anyway after next frame;
     // dummy positions are given to make sure it is not visible within viewport
-    PureUiText* tmpText = pure->getUImanager().text(textStr, 0, -500, pure->getUImanager().getDefaultFontFace(), (int) (fontheight*(scaling/60.0f)), false, false, false, false);
+    PureUiText* tmpText = pure->getUImanager().textTemporalLegacy(textStr, 0, -500, pure->getUImanager().getDefaultFontFaceLegacy(), (int) (fontheight*(scaling/60.0f)), false, false, false, false);
 
     if ( tmpText )
         return (DELPHI_INTEGER) tmpText->getWidth() - tmpText->getText().length()*2;  /* small correction for legacy projects which also contain some negative correction */
