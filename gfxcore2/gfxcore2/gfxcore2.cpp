@@ -185,7 +185,7 @@ GFXCORE2_API DELPHI_BYTE __stdcall tmcsInitGraphix(HWND wnd, DELPHI_BOOLEAN fs, 
 
     if ( nRetVal == 0 )
     {
-        pure->getScreen().SetVSyncEnabled( vsyncstate );
+        pure->getScreen().setVSyncEnabled( vsyncstate );
 
         PureWindow& window = pure->getWindow();
         window.SetAutoCleanupOnQuitOn(false);
