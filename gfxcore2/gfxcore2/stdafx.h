@@ -7,7 +7,6 @@
     that are used frequently, but are changed infrequently.
     Used by gfxcore2.
     Made by PR00F88
-    EMAIL : PR0o0o0o0o0o0o0o0o0o0oF88@gmail.com
     ###################################################################################
 */
 

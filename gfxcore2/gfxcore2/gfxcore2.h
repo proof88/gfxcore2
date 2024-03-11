@@ -8,7 +8,6 @@
     This DLL is only a wrapper so the old PR00FPS can utilize my new engine: PURE.
     Aim is to avoid any modification to PR00FPS code, the change is totally transparent.
     Made by PR00F88
-    EMAIL : PR0o0o0o0o0o0o0o0o0o0oF88@gmail.com
     ###################################################################################
 */
 
