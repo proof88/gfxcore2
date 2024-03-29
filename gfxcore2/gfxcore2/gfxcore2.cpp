@@ -129,7 +129,7 @@ static bool createPrerequisitePgeObjects()
 {
     if (!cfgProfiles)
     {
-        cfgProfiles = new PGEcfgProfiles("");
+        cfgProfiles = new PGEcfgProfiles();
         if (!cfgProfiles)
         {
             return false;
