@@ -23,6 +23,11 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerWorkingDirectory>..\gfxcore2wrapper_test</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseTest_PRooFPS-dd|Win32'">
+    <LocalDebuggerCommand>D:\__PR00F__\___developing___\projects\gfxcore2\gfxcore2\gfxcore2wrapper_test\gfxcore2wrapper_test.exe</LocalDebuggerCommand>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerWorkingDirectory>..\gfxcore2wrapper_test</LocalDebuggerWorkingDirectory>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePR00FPS|Win32'">
     <LocalDebuggerCommand>$(OutDir)\..\..\..\PR00FPS\PR00FPS\PR00FPS.exe</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
